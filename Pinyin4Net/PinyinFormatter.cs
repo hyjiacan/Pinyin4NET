@@ -45,92 +45,106 @@ namespace hyjiacan.util.p4n
             return pinyinStr;
         }
         private static string convertToneNumber2ToneMark(String pinyinStr)
-    {
-        String lowerCasePinyinStr = pinyinStr.ToLower();
-        Regex reg = new Regex("[a-z]*[1-5]?");
-        if (reg.IsMatch(lowerCasePinyinStr))
         {
-            const char defautlCharValue = '$';
-            const int defautlIndexValue = -1;
-
-            char unmarkedVowel = defautlCharValue;
-            int indexOfUnmarkedVowel = defautlIndexValue;
-
-            const char charA = 'a';
-            const char charE = 'e';
-            const String ouStr = "ou";
-            const String allUnmarkedVowelStr = "aeiouv";
-            const String allMarkedVowelStr = "āáăàaēéĕèeīíĭìiōóŏòoūúŭùuǖǘǚǜü";
-             reg = new Regex("[a-z]*[1-5]");
+            String lowerCasePinyinStr = pinyinStr.ToLower();
+            Regex reg = new Regex("[a-z]*[1-5]?");
             if (reg.IsMatch(lowerCasePinyinStr))
             {
+                string match = reg.Match(lowerCasePinyinStr).Value;
+                const char defautlCharValue = '$';
+                const int defautlIndexValue = -1;
 
-                int tuneNumber = (int)Char.GetNumericValue(lowerCasePinyinStr[lowerCasePinyinStr.Length - 1]);
+                char unmarkedVowel = defautlCharValue;
+                int indexOfUnmarkedVowel = defautlIndexValue;
 
-                int indexOfA = lowerCasePinyinStr.IndexOf(charA);
-                int indexOfE = lowerCasePinyinStr.IndexOf(charE);
-                int ouIndex = lowerCasePinyinStr.IndexOf(ouStr);
+                const char charA = 'a';
+                const char charE = 'e';
+                const String ouStr = "ou";
+                const String allUnmarkedVowelStr = "aeiouv";
+                const String allMarkedVowelStr = "āáăàaēéĕèeīíĭìiōóŏòoūúŭùuǖǘǚǜü";
+                reg = new Regex("[a-z]*[1-5]");
+                if (reg.IsMatch(lowerCasePinyinStr))
+                {
 
-                if (-1 != indexOfA)
-                {
-                    indexOfUnmarkedVowel = indexOfA;
-                    unmarkedVowel = charA;
-                } else if (-1 != indexOfE)
-                {
-                    indexOfUnmarkedVowel = indexOfE;
-                    unmarkedVowel = charE;
-                } else if (-1 != ouIndex)
-                {
-                    indexOfUnmarkedVowel = ouIndex;
-                    unmarkedVowel = ouStr[0];
-                } else
-                {
-                    for (int i = lowerCasePinyinStr.Length - 1; i >= 0; i--)
+                    int tuneNumber = (int)Char.GetNumericValue(lowerCasePinyinStr[lowerCasePinyinStr.Length - 1]);
+
+                    int indexOfA = lowerCasePinyinStr.IndexOf(charA);
+                    int indexOfE = lowerCasePinyinStr.IndexOf(charE);
+                    int ouIndex = lowerCasePinyinStr.IndexOf(ouStr);
+
+                    if (-1 != indexOfA)
+                    {
+                        indexOfUnmarkedVowel = indexOfA;
+                        unmarkedVowel = charA;
+                    }
+                    else if (-1 != indexOfE)
+                    {
+                        indexOfUnmarkedVowel = indexOfE;
+                        unmarkedVowel = charE;
+                    }
+                    else if (-1 != ouIndex)
+                    {
+                        indexOfUnmarkedVowel = ouIndex;
+                        unmarkedVowel = ouStr[0];
+                    }
+                    else
                     {
                         reg = new Regex("[" + allUnmarkedVowelStr + "]");
-                        if (reg.IsMatch(lowerCasePinyinStr[i].ToString()))
+
+                        for (int i = lowerCasePinyinStr.Length - 1; i >= 0; i--)
                         {
-                            indexOfUnmarkedVowel = i;
-                            unmarkedVowel = lowerCasePinyinStr[i];
-                            break;
+                            if (reg.IsMatch(lowerCasePinyinStr[i].ToString()))
+                            {
+                                indexOfUnmarkedVowel = i;
+                                unmarkedVowel = lowerCasePinyinStr[i];
+                                break;
+                            }
                         }
                     }
+
+                    if ((defautlCharValue != unmarkedVowel)
+                            && (defautlIndexValue != indexOfUnmarkedVowel))
+                    {
+                        int rowIndex = allUnmarkedVowelStr.IndexOf(unmarkedVowel);
+                        int columnIndex = tuneNumber - 1;
+
+                        int vowelLocation = rowIndex * 5 + columnIndex;
+
+                        char markedVowel = allMarkedVowelStr[vowelLocation];
+
+                        StringBuilder resultBuffer = new StringBuilder();
+                        // 声母
+                        resultBuffer.Append(lowerCasePinyinStr.Substring(0, indexOfUnmarkedVowel).Replace("v", "ü"));
+                        // 有声调的部分
+                        resultBuffer.Append(markedVowel);
+                        // 剩下的部分
+                        resultBuffer.Append(lowerCasePinyinStr.Substring(indexOfUnmarkedVowel + 1).Replace("v", "ü"));
+
+                        string result = resultBuffer.ToString();
+                        // 替换声调数字
+                        result = new Regex("[0-9]").Replace(result, "");
+
+                        return result;
+
+                    }
+                    else
+                    // error happens in the procedure of locating vowel
+                    {
+                        return lowerCasePinyinStr;
+                    }
                 }
-
-                if ((defautlCharValue != unmarkedVowel)
-                        && (defautlIndexValue != indexOfUnmarkedVowel))
+                else
+                // input string has no any tune number
                 {
-                    int rowIndex = allUnmarkedVowelStr.IndexOf(unmarkedVowel);
-                    int columnIndex = tuneNumber - 1;
-
-                    int vowelLocation = rowIndex * 5 + columnIndex;
-
-                    char markedVowel = allMarkedVowelStr[vowelLocation];
-
-                    StringBuilder resultBuffer = new StringBuilder();
-
-                    resultBuffer.Append(lowerCasePinyinStr.Substring(0, indexOfUnmarkedVowel).Replace("v", "ü"));
-                    resultBuffer.Append(markedVowel);
-                    //resultBuffer.Append(lowerCasePinyinStr.Substring(indexOfUnmarkedVowel, lowerCasePinyinStr.Length - 1).Replace("v", "ü"));
-
-                    return resultBuffer.ToString();
-
-                } else
-                // error happens in the procedure of locating vowel
-                {
-                    return lowerCasePinyinStr;
+                    // only replace v with ü (umlat) character
+                    return lowerCasePinyinStr.Replace("v", "ü");
                 }
-            } else
-            // input string has no any tune number
-            {
-                // only replace v with ü (umlat) character
-                return lowerCasePinyinStr.Replace("v", "ü");
             }
-        } else
-        // bad format
-        {
-            return lowerCasePinyinStr;
+            else
+            // bad format
+            {
+                return lowerCasePinyinStr;
+            }
         }
-    }
     }
 }
