@@ -12,33 +12,36 @@ namespace hyjiacan.util.p4n
         internal static String formatHanyuPinyin(String pinyinStr,
             HanyuPinyinOutputFormat outputFormat)
         {
-            if ((HanyuPinyinToneType.WITH_TONE_MARK == outputFormat.getToneType())
-                    && ((HanyuPinyinVCharType.WITH_V == outputFormat.getVCharType()) || (HanyuPinyinVCharType.WITH_U_AND_COLON == outputFormat.getVCharType())))
+            if ((HanyuPinyinToneType.WITH_TONE_MARK.Equals(outputFormat.getToneType()))
+                    && (
+                        (HanyuPinyinVCharType.WITH_V.Equals(outputFormat.getVCharType()))
+                        || (HanyuPinyinVCharType.WITH_U_AND_COLON.Equals(outputFormat.getVCharType()))
+                    ))
             {
                 throw new BadHanyuPinyinOutputFormatCombination("tone marks cannot be added to v or u:");
             }
 
-            if (HanyuPinyinToneType.WITHOUT_TONE == outputFormat.getToneType())
+            if (HanyuPinyinToneType.WITHOUT_TONE.Equals(outputFormat.getToneType()))
             {
                 Regex reg = new Regex("[1-5]");
                 pinyinStr = reg.Replace(pinyinStr, "");
             }
-            else if (HanyuPinyinToneType.WITH_TONE_MARK == outputFormat.getToneType())
+            else if (HanyuPinyinToneType.WITH_TONE_MARK.Equals(outputFormat.getToneType()))
             {
                 pinyinStr = pinyinStr.Replace("u:", "v");
                 pinyinStr = convertToneNumber2ToneMark(pinyinStr);
             }
 
-            if (HanyuPinyinVCharType.WITH_V == outputFormat.getVCharType())
+            if (HanyuPinyinVCharType.WITH_V.Equals(outputFormat.getVCharType()))
             {
                 pinyinStr = pinyinStr.Replace("u:", "v");
             }
-            else if (HanyuPinyinVCharType.WITH_U_UNICODE == outputFormat.getVCharType())
+            else if (HanyuPinyinVCharType.WITH_U_UNICODE.Equals(outputFormat.getVCharType()))
             {
                 pinyinStr = pinyinStr.Replace("u:", "ü");
             }
 
-            if (HanyuPinyinCaseType.UPPERCASE == outputFormat.getCaseType())
+            if (HanyuPinyinCaseType.UPPERCASE.Equals(outputFormat.getCaseType()))
             {
                 pinyinStr = pinyinStr.ToUpper();
             }

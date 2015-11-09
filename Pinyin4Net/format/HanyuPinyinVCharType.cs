@@ -77,11 +77,32 @@ namespace hyjiacan.util.p4n.format
         /**
          * staticructor
          */
-        protected HanyuPinyinVCharType(String name)
+        public HanyuPinyinVCharType(String name)
         {
             setName(name);
         }
 
         protected String name;
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            if (obj is HanyuPinyinVCharType)
+            {
+                return this.getName() == ((HanyuPinyinVCharType)obj).getName();
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public override int GetHashCode()
+        {
+            return this.getName().GetHashCode();
+        }
     }
 }

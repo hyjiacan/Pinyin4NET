@@ -38,48 +38,69 @@ namespace hyjiacan.util.p4n.format
  * @author Li Min (xmlerlimin@gmail.com)
  * 
  */
-public class HanyuPinyinToneType
-{
-
-    /**
-     * The option indicates that hanyu pinyin is outputted with tone numbers
-     */
-    public static HanyuPinyinToneType WITH_TONE_NUMBER = new HanyuPinyinToneType("WITH_TONE_NUMBER");
-
-    /**
-     * The option indicates that hanyu pinyin is outputted without tone numbers
-     * or tone marks
-     */
-    public static HanyuPinyinToneType WITHOUT_TONE = new HanyuPinyinToneType("WITHOUT_TONE");
-
-    /**
-     * The option indicates that hanyu pinyin is outputted with tone marks
-     */
-    public static HanyuPinyinToneType WITH_TONE_MARK = new HanyuPinyinToneType("WITH_TONE_MARK");
-
-    /**
-     * @return Returns the name.
-     */
-    public String getName()
+    public class HanyuPinyinToneType
     {
-        return name;
-    }
 
-    /**
-     * @param name
-     *            The name to set.
-     */
-    protected void setName(String name)
-    {
-        this.name = name;
-    }
+        /**
+         * The option indicates that hanyu pinyin is outputted with tone numbers
+         */
+        public static HanyuPinyinToneType WITH_TONE_NUMBER = new HanyuPinyinToneType("WITH_TONE_NUMBER");
 
-    protected HanyuPinyinToneType(String name)
-    {
-        setName(name);
-    }
+        /**
+         * The option indicates that hanyu pinyin is outputted without tone numbers
+         * or tone marks
+         */
+        public static HanyuPinyinToneType WITHOUT_TONE = new HanyuPinyinToneType("WITHOUT_TONE");
 
-    protected String name;
-}
+        /**
+         * The option indicates that hanyu pinyin is outputted with tone marks
+         */
+        public static HanyuPinyinToneType WITH_TONE_MARK = new HanyuPinyinToneType("WITH_TONE_MARK");
+
+        /**
+         * @return Returns the name.
+         */
+        public String getName()
+        {
+            return name;
+        }
+
+        /**
+         * @param name
+         *            The name to set.
+         */
+        protected void setName(String name)
+        {
+            this.name = name;
+        }
+
+        public HanyuPinyinToneType(String name)
+        {
+            setName(name);
+        }
+
+        protected String name;
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            if (obj is HanyuPinyinToneType)
+            {
+                return this.getName() == ((HanyuPinyinToneType)obj).getName();
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public override int GetHashCode()
+        {
+            return this.getName().GetHashCode();
+        }
+    }
 
 }

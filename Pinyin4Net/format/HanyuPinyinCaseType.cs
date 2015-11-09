@@ -63,11 +63,33 @@ namespace hyjiacan.util.p4n.format
         /**
          * Constructor
          */
-        protected HanyuPinyinCaseType(String name)
+        public HanyuPinyinCaseType(String name)
         {
             setName(name);
         }
 
         protected String name;
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            if (obj is HanyuPinyinCaseType)
+            {
+                return this.getName() == ((HanyuPinyinCaseType)obj).getName();
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return this.getName().GetHashCode();
+        }
     }
 }
