@@ -1,55 +1,95 @@
-﻿using System;
+﻿using hyjiacan.py4n.exception;
+using hyjiacan.py4n.format;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using hyjiacan.util.p4n.format;
-using hyjiacan.util.p4n.format.exception;
 using System.Text.RegularExpressions;
 
-namespace hyjiacan.util.p4n
+namespace hyjiacan.py4n
 {
-    public class PinyinFormatter
+    /// <summary>
+    /// 拼音格式化
+    /// </summary>
+    public static class PinyinFormatter
     {
-        internal static String formatHanyuPinyin(String pinyinStr,
-            HanyuPinyinOutputFormat outputFormat)
+        /// <summary>
+        /// 将拼音格式化成指定的格式
+        /// </summary>
+        /// <param name="pinyin">待格式化的拼音</param>
+        /// <param name="format">格式</param>
+        /// <see cref="ToneFormat"/>
+        /// <see cref="CaseFormat"/>
+        /// <see cref="VCharFormat"/>
+        /// <returns></returns>
+        public static string Format(string pinyin, PinyinOutputFormat format)
         {
-            if ((HanyuPinyinToneType.WITH_TONE_MARK.Equals(outputFormat.getToneType()))
-                    && (
-                        (HanyuPinyinVCharType.WITH_V.Equals(outputFormat.getVCharType()))
-                        || (HanyuPinyinVCharType.WITH_U_AND_COLON.Equals(outputFormat.getVCharType()))
-                    ))
+            /// "v"或"u:"不能添加声调
+            if ((ToneFormat.WITH_TONE_MARK == format.GetToneFormat) &&
+                    (
+                        (VCharFormat.WITH_V == format.GetVCharFormat)
+                        || (VCharFormat.WITH_U_AND_COLON == format.GetVCharFormat)
+                    )
+                )
             {
-                throw new BadHanyuPinyinOutputFormatCombination("tone marks cannot be added to v or u:");
+                throw new PinyinException("\"v\"或\"u:\"不能添加声调");
             }
 
-            if (HanyuPinyinToneType.WITHOUT_TONE.Equals(outputFormat.getToneType()))
+            if (ToneFormat.WITHOUT_TONE == format.GetToneFormat)
             {
+                // 不带声调
                 Regex reg = new Regex("[1-5]");
-                pinyinStr = reg.Replace(pinyinStr, "");
+                pinyin = reg.Replace(pinyin, "");
             }
-            else if (HanyuPinyinToneType.WITH_TONE_MARK.Equals(outputFormat.getToneType()))
+            else if (ToneFormat.WITH_TONE_MARK == format.GetToneFormat)
             {
-                pinyinStr = pinyinStr.Replace("u:", "v");
-                pinyinStr = convertToneNumber2ToneMark(pinyinStr);
+                // 带声调标志
+                pinyin = pinyin.Replace("u:", "v");
+                pinyin = convertToneNumber2ToneMark(pinyin);
             }
 
-            if (HanyuPinyinVCharType.WITH_V.Equals(outputFormat.getVCharType()))
+            if (VCharFormat.WITH_V == format.GetVCharFormat)
             {
-                pinyinStr = pinyinStr.Replace("u:", "v");
+                // 输出v
+                pinyin = pinyin.Replace("u:", "v");
             }
-            else if (HanyuPinyinVCharType.WITH_U_UNICODE.Equals(outputFormat.getVCharType()))
+            else if (VCharFormat.WITH_U_UNICODE == format.GetVCharFormat)
             {
-                pinyinStr = pinyinStr.Replace("u:", "ü");
+                // 输出ü
+                pinyin = pinyin.Replace("u:", "ü");
             }
 
-            if (HanyuPinyinCaseType.UPPERCASE.Equals(outputFormat.getCaseType()))
+            if (CaseFormat.UPPERCASE == format.GetCaseFormat)
             {
-                pinyinStr = pinyinStr.ToUpper();
+                // 大写
+                pinyin = pinyin.ToUpper();
             }
-            return pinyinStr;
+            else if (CaseFormat.LOWERCASE == format.GetCaseFormat)
+            {
+                // 小写
+                pinyin = pinyin.ToLower();
+            }
+            else if (CaseFormat.CAPITALIZE_FIRST_LETTER == format.GetCaseFormat)
+            {
+                // 首字母大写
+
+                // 不处理单拼音 a e o
+                if (!new List<string>() { "a", "e", "o"}.Contains(pinyin.ToLower()))
+                {
+                    pinyin = pinyin.Substring(0, 1).ToUpper() + (pinyin.Length == 1 ? "" : pinyin.Substring(1));
+                }
+            }
+            return pinyin;
         }
-        private static string convertToneNumber2ToneMark(String pinyinStr)
+
+
+        /// <summary>
+        /// 将拼音的声调数字转换成字符
+        /// </summary>
+        /// <param name="pinyin"></param>
+        /// <returns></returns>
+        private static string convertToneNumber2ToneMark(String pinyin)
         {
-            String lowerCasePinyinStr = pinyinStr.ToLower();
+            String lowerCasePinyinStr = pinyin.ToLower();
             Regex reg = new Regex("[a-z]*[1-5]?");
             if (reg.IsMatch(lowerCasePinyinStr))
             {

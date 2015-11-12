@@ -63,10 +63,8 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Pinyin4NetHandler.ashx" />
+    <Content Include="pinyin.dat" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
-    <Content Include="pinyindb\pinyin_gwoyeu_mapping.xml" />
-    <Content Include="pinyindb\pinyin_mapping.xml" />
-    <Content Include="pinyindb\unicode_to_hanyu_pinyin.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
@@ -89,9 +87,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Pinyin4Net\Pinyin4Net.csproj">
-      <Project>{190c27c8-eea1-4bd6-9dfd-ecbf87b4651c}</Project>
-      <Name>Pinyin4Net</Name>
+    <ProjectReference Include="..\hyjiacan.py4n\hyjiacan.py4n.csproj">
+      <Project>{a97825ff-42d0-4bf3-8ec6-071e99fcad63}</Project>
+      <Name>hyjiacan.py4n</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -1,5 +1,4 @@
-﻿using hyjiacan.util.p4n;
-using hyjiacan.util.p4n.format;
+﻿using hyjiacan.py4n;
 using System;
 using System.Collections.Generic;
 using System.Web;
@@ -29,32 +28,28 @@ namespace Pinyin4NetWebDemo
                 string hanzi = req["hanzi"];
                 // 用于控制多音字的返回， 有两种取值 first：取第1个音，all：取所有音 默认为取第1个音
                 string multi = req["multi"];
-                
+
                 // 请求参数不为空才处理
                 if (!string.IsNullOrEmpty(hanzi))
                 {
-                    #region // 解析从客户端来的输出格式设置
-                    HanyuPinyinOutputFormat format = new HanyuPinyinOutputFormat();
-
-                    format.setCaseType(new HanyuPinyinCaseType(req["caseType"]));
-                    format.setToneType(new HanyuPinyinToneType(req["toneType"]));
-                    format.setVCharType(new HanyuPinyinVCharType(req["vType"]));
-                    #endregion
+                    // 解析从客户端来的输出格式设置
+                    PinyinOutputFormat format = new PinyinOutputFormat(req["toneType"], req["caseType"], req["vType"]);
 
                     foreach (char ch in hanzi)
                     {
-                        if (Util.IsHanzi(ch))
+                        // 是汉字才处理
+                        if (PinyinUtil.IsHanzi(ch))
                         {
-                            // 是汉字才处理
-                            string[] py = PinyinHelper.toHanyuPinyinStringArray(ch, format);
-                            
-                            if (multi.Equals("first", StringComparison.OrdinalIgnoreCase) || py.Length == 1)
+                            // 是否只取第一个拼音
+                            if (multi.Equals("first", StringComparison.OrdinalIgnoreCase))
                             {
+                                string py = Pinyin4Net.GetUniqueOrFirstPinyinWithFormat(ch, format);
                                 // 拼音间追加一个空格，这里如果是多间字，拼音可能不准确
-                                pinyin += py[0] + " ";
+                                pinyin += py + " ";
                             }
                             else
                             {
+                                string[] py = Pinyin4Net.GetPinyinWithFormat(ch, format);
                                 pinyin += "(" + string.Join(",", py) + ") ";
                             }
                         }
