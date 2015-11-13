@@ -82,26 +82,53 @@ namespace hyjiacan.py4n
         /// </summary>
         /// <param name="text"></param>
         /// <param name="format">拼音格式</param>
-        /// <param name="caseSpread">是否将前面的格式中的大小写扩展到其它非拼音字符，默认为false </param>
-        /// <returns></returns>
-        public static string GetPinyin(string text, PinyinOutputFormat format, bool caseSpread)
+        /// <param name="caseSpread">是否将前面的格式中的大小写扩展到其它非拼音字符，默认为false。firstLetterOnly为false时有效 </param>
+        /// <param name="firstLetterOnly">是否只取拼音首字母，为true时，format无效</param>
+        /// <param name="multiFirstLetter">firstLetterOnly为true时有效，多音字的多个读音首字母是否全取，如果多音字拼音首字母相同，只保留一个</param>
+        /// <returns>firstLetterOnly为true时，只取拼音首字母格式为[L]，后面追加空格；multiFirstLetter为true时，多音字的多个拼音首字母格式为[L, H]，后面追加空格</returns>
+        public static string GetPinyin(string text, PinyinOutputFormat format, bool caseSpread, bool firstLetterOnly, bool multiFirstLetter)
         {
             StringBuilder pinyin = new StringBuilder();
+            List<string> firstLetterBuf = new List<string>();
             if (!string.IsNullOrEmpty(text))
             {
                 foreach (char item in text)
                 {
-                    if (PinyinUtil.IsHanzi(item))
+                    if (!PinyinUtil.IsHanzi(item))
                     {
-                        pinyin.Append(GetUniqueOrFirstPinyinWithFormat(item, format) + " ");
+                        pinyin.Append(item);
+                        continue;
+                    }
+
+                    if (firstLetterOnly)
+                    {
+                        if (multiFirstLetter)
+                        {
+                            firstLetterBuf.Clear();
+                            foreach (string py in GetPinyin(item))
+                            {
+                                // 处理多音字拼音首字母相同的情况
+                                if (!firstLetterBuf.Contains(py[0].ToString()))
+                                {
+                                    firstLetterBuf.Add(py[0].ToString());
+                                }
+                            }
+
+                            pinyin.AppendFormat("[{0}] ", string.Join(",", firstLetterBuf.ToArray()));
+                        }
+                        else
+                        {
+                            pinyin.AppendFormat("[{0}] ", GetUniqueOrFirstPinyin(item)[0]);
+                        }
                     }
                     else
                     {
-                        pinyin.Append( item);
+                        pinyin.Append(GetUniqueOrFirstPinyinWithFormat(item, format) + " ");
                     }
+
                 }
                 #region // 扩展大小写格式
-                if (caseSpread)
+                if (!firstLetterOnly && caseSpread)
                 {
                     string[] temp = null;
                     switch (format.GetCaseFormat)
@@ -145,7 +172,7 @@ namespace hyjiacan.py4n
         /// <returns></returns>
         public static string GetPinyin(string text, PinyinOutputFormat format)
         {
-            return GetPinyin(text, format, false);
+            return GetPinyin(text, format, false, false, false);
         }
         #endregion
     }
