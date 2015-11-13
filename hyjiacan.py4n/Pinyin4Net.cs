@@ -1,4 +1,5 @@
 ﻿using hyjiacan.py4n.exception;
+using hyjiacan.py4n.format;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,6 +8,7 @@ namespace hyjiacan.py4n
 {
     public static class Pinyin4Net
     {
+        #region // 获取单字拼音
         /// <summary>
         /// 获取汉字的拼音数组
         /// </summary>
@@ -72,5 +74,79 @@ namespace hyjiacan.py4n
 
             return fmtedPY;
         }
+        #endregion
+
+        #region // 获取多字拼音
+        /// <summary>
+        /// 获取一个字符串内所有汉字的拼音（多音字取第一个读音，带格式）
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="format">拼音格式</param>
+        /// <param name="caseSpread">是否将前面的格式中的大小写扩展到其它非拼音字符，默认为false </param>
+        /// <returns></returns>
+        public static string GetPinyin(string text, PinyinOutputFormat format, bool caseSpread)
+        {
+            StringBuilder pinyin = new StringBuilder();
+            if (!string.IsNullOrEmpty(text))
+            {
+                foreach (char item in text)
+                {
+                    if (PinyinUtil.IsHanzi(item))
+                    {
+                        pinyin.Append(GetUniqueOrFirstPinyinWithFormat(item, format) + " ");
+                    }
+                    else
+                    {
+                        pinyin.Append( item);
+                    }
+                }
+                #region // 扩展大小写格式
+                if (caseSpread)
+                {
+                    string[] temp = null;
+                    switch (format.GetCaseFormat)
+                    {
+                        case CaseFormat.CAPITALIZE_FIRST_LETTER:
+                            temp = pinyin.ToString().Split(' ');
+                            pinyin.Length = 0;
+
+                            foreach (string item in temp)
+                            {
+                                pinyin.Append(item.Substring(0, 1).ToUpper());
+                                if (item.Length > 1)
+                                {
+                                    pinyin.Append(item.Substring(1));
+                                }
+                                pinyin.Append(" ");
+                            }
+                            break;
+                        case CaseFormat.LOWERCASE:
+                            temp = new string[] { pinyin.ToString() };
+                            pinyin.Length = 0;
+                            pinyin.Append(temp[0].ToLower());
+                            break;
+                        case CaseFormat.UPPERCASE:
+                            temp = new string[] { pinyin.ToString() };
+                            pinyin.Length = 0;
+                            pinyin.Append(temp[0].ToUpper());
+                            break;
+                    }
+                }
+                #endregion
+            }
+
+            return pinyin.ToString().Trim();
+        }
+        /// <summary>
+        /// 获取一个字符串内所有汉字的拼音（多音字取第一个读音，带格式），format中指定的大小写模式不会扩展到非拼音字符
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="format">拼音格式</param>
+        /// <returns></returns>
+        public static string GetPinyin(string text, PinyinOutputFormat format)
+        {
+            return GetPinyin(text, format, false);
+        }
+        #endregion
     }
 }

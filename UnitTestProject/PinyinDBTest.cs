@@ -82,6 +82,79 @@ namespace hyjiacan.py4n.test
         }
 
         /// <summary>
+        /// 测试字符串
+        /// </summary>
+        [TestMethod]
+        public void TestString1()
+        {
+            string s = "Javascript 爱好者 传说";
+            PinyinOutputFormat format = new PinyinOutputFormat();
+            string expected = "Javascript ài hăo zhĕ  chuán shuō";
+            string pinyin = Pinyin4Net.GetPinyin(s, format);
+            Assert.AreEqual<string>(expected, pinyin);
+        }
+
+        /// <summary>
+        /// 测试字符串
+        /// </summary>
+        [TestMethod]
+        public void TestString2()
+        {
+            string s = "Javascript 爱好者 传说";
+            PinyinOutputFormat format = new PinyinOutputFormat(null, CaseFormat.CAPITALIZE_FIRST_LETTER.ToString(), VCharFormat.WITH_U_UNICODE.ToString());
+            string expected = "Javascript Ài Hăo Zhĕ  Chuán Shuō";
+            string pinyin = Pinyin4Net.GetPinyin(s, format);
+            Assert.AreEqual<string>(expected, pinyin);
+        }
+        /// <summary>
+        /// 测试字符串
+        /// </summary>
+        [TestMethod]
+        public void TestString3()
+        {
+            string s = "Javascript 爱好者 传说";
+            PinyinOutputFormat format = new PinyinOutputFormat(null, CaseFormat.UPPERCASE.ToString(), VCharFormat.WITH_U_UNICODE.ToString());
+            string expected = "Javascript ÀI HĂO ZHĔ  CHUÁN SHUŌ";
+            string pinyin = Pinyin4Net.GetPinyin(s, format);
+            Assert.AreEqual<string>(expected, pinyin);
+        }
+        /// <summary>
+        /// 测试字符串
+        /// </summary>
+        [TestMethod]
+        public void TestString4()
+        {
+            string s = "Javascript 爱好者 传说";
+            PinyinOutputFormat format = new PinyinOutputFormat(null, CaseFormat.UPPERCASE.ToString(), VCharFormat.WITH_U_UNICODE.ToString());
+            string expected = "JAVASCRIPT ÀI HĂO ZHĔ  CHUÁN SHUŌ";
+            string pinyin = Pinyin4Net.GetPinyin(s, format, true);
+            Assert.AreEqual<string>(expected, pinyin);
+        }
+        /// <summary>
+        /// 测试字符串
+        /// </summary>
+        [TestMethod]
+        public void TestString5()
+        {
+            string s = "JavaScript 爱好者 传说";
+            PinyinOutputFormat format = new PinyinOutputFormat(null, CaseFormat.LOWERCASE.ToString(), VCharFormat.WITH_U_UNICODE.ToString());
+            string expected = "JavaScript ài hăo zhĕ  chuán shuō";
+            string pinyin = Pinyin4Net.GetPinyin(s, format);
+            Assert.AreEqual<string>(expected, pinyin);
+        }
+        /// <summary>
+        /// 测试字符串
+        /// </summary>
+        [TestMethod]
+        public void TestString6()
+        {
+            string s = "JavaScript 爱好者 传说";
+            PinyinOutputFormat format = new PinyinOutputFormat(null, CaseFormat.LOWERCASE.ToString(), VCharFormat.WITH_U_UNICODE.ToString());
+            string expected = "javascript ài hăo zhĕ  chuán shuō";
+            string pinyin = Pinyin4Net.GetPinyin(s, format, true);
+            Assert.AreEqual<string>(expected, pinyin);
+        }
+        /// <summary>
         /// 判断汉字与读音数组
         /// </summary>
         /// <param name="hanzi"></param>
