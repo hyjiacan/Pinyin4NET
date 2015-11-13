@@ -14,11 +14,12 @@
                 var me = $(this);
                 var py = me.parent().siblings('.input-group').find('input[name=output]');
                 if (e.keyCode == 13) {
-                    var hanzi = me.val().trim();
+                    var key = me.val().trim();
 
                     $.get('Pinyin4NetHandler.ashx', {
                         dt: new Date().getTime(),
-                        hanzi: hanzi,
+                        key: key,
+                        cmd: me.attr('data-cmd'),
                         multi: $('#multi').val(),
                         casetype: $('#caseType').val(),
                         tonetype: $('#toneType').val(),
@@ -36,7 +37,7 @@
         <h1>Pinyin4Net Web Demo</h1>
         <div class="panel panel-default">
             <div class="panel-heading">
-                选项
+                汉字转拼音
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -80,22 +81,32 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                汉字转拼音
-            </div>
-            <div class="panel-body">
                 <div class="input-group">
                     <span class="input-group-addon">汉字</span>
-                    <input type="text" class="form-control" value="Javascript 爱好者 传说" />
+                    <input type="text" class="form-control" data-cmd="0" value="Javascript 爱好者 传说" />
                     <span class="input-group-addon">按回车触发</span>
                 </div>
                 <br />
                 <div class="input-group">
                     <span class="input-group-addon">拼音</span>
                     <input type="text" name="output" class="form-control" placeholder="汉字转拼音结果" readonly="readonly" />
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                拼音查汉字
+            </div>
+            <div class="panel-body">
+                <div class="input-group">
+                    <span class="input-group-addon">拼音</span>
+                    <input type="text" class="form-control" value="l" data-cmd="1" />
+                    <span class="input-group-addon">按回车触发</span>
+                </div>
+                <br />
+                <div class="input-group">
+                    <span class="input-group-addon">汉字</span>
+                    <input type="text" name="output" class="form-control" placeholder="匹配汉字结果" readonly="readonly" />
                 </div>
             </div>
         </div>

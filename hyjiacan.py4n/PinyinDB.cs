@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace hyjiacan.py4n
 {
@@ -94,6 +95,54 @@ namespace hyjiacan.py4n
             }
 
             return pinyin;
+        }
+
+        /// <summary>
+        /// 根据拼音获取汉字
+        /// </summary>
+        /// <param name="pinyin">拼音</param>
+        /// <param name="matchAll">是否全部匹配，为true时，匹配整个拼音，否则匹配开头字符</param>
+        /// <returns></returns>
+        public string[] GetHanzi(string pinyin, bool matchAll)
+        {
+            List<string> hanzi = new List<string>();
+            Regex reg = new Regex("[0-9]");
+            // 完全匹配
+            if (matchAll)
+            {
+                // 查询到匹配的拼音的unicode编码
+                foreach (string code in map.Keys)
+                {
+                    foreach (var item in map[code])
+                    {
+                        if (reg.Replace(item, "").Equals(pinyin))
+                        {
+                            // unicode编码转汉字
+                            hanzi.Add(Convert.ToChar(Convert.ToInt32(code, 16)).ToString());
+                            break;
+                        }
+                    }
+                }
+            }
+            // 匹配开头部分
+            else
+            {
+                // 查询到匹配的拼音的unicode编码
+                foreach (string code in map.Keys)
+                {
+                    foreach (var item in map[code])
+                    {
+                        if (item.StartsWith(pinyin))
+                        {
+                            // unicode编码转汉字
+                            hanzi.Add(Convert.ToChar(Convert.ToInt32(code, 16)).ToString());
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return hanzi.ToArray();
         }
     }
 }

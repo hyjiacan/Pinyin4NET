@@ -75,8 +75,7 @@ namespace hyjiacan.py4n
             return fmtedPY;
         }
         #endregion
-
-        #region // 获取多字拼音
+        
         /// <summary>
         /// 获取一个字符串内所有汉字的拼音（多音字取第一个读音，带格式）
         /// </summary>
@@ -164,6 +163,7 @@ namespace hyjiacan.py4n
 
             return pinyin.ToString().Trim();
         }
+        
         /// <summary>
         /// 获取一个字符串内所有汉字的拼音（多音字取第一个读音，带格式），format中指定的大小写模式不会扩展到非拼音字符
         /// </summary>
@@ -174,6 +174,15 @@ namespace hyjiacan.py4n
         {
             return GetPinyin(text, format, false, false, false);
         }
-        #endregion
+        /// <summary>
+        /// 根据拼音查询西区的汉字
+        /// </summary>
+        /// <param name="pinyin"></param>
+        /// <param name="matchAll">是否全部匹配，为true时，匹配整个拼音，否则匹配开头字符</param>
+        /// <returns></returns>
+        public static string[] GetHanzi(string pinyin, bool matchAll)
+        {
+            return PinyinDB.Instance.GetHanzi(pinyin.ToLower(), matchAll);
+        }
     }
 }

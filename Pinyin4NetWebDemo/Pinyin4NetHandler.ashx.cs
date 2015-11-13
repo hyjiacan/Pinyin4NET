@@ -21,51 +21,64 @@ namespace Pinyin4NetWebDemo
             res.ContentEncoding = System.Text.Encoding.UTF8;
             res.ContentType = "text/plain";
 
-            string pinyin = string.Empty;
+            string result = string.Empty;
 
             try
             {
-                string hanzi = req["hanzi"];
+                // 输入的汉字或拼音
+                string key = req["key"];
                 // 用于控制多音字的返回， 有两种取值 first：取第1个音，all：取所有音 默认为取第1个音
                 string multi = req["multi"];
 
                 // 请求参数不为空才处理
-                if (!string.IsNullOrEmpty(hanzi))
+                if (!string.IsNullOrEmpty(key))
                 {
-                    // 解析从客户端来的输出格式设置
-                    PinyinOutputFormat format = new PinyinOutputFormat(req["toneType"], req["caseType"], req["vType"]);
-
-                    foreach (char ch in hanzi)
+                    if (req["cmd"] == "0")
                     {
-                        // 是汉字才处理
-                        if (PinyinUtil.IsHanzi(ch))
+                        #region // 汉字转拼音
+                        // 解析从客户端来的输出格式设置
+                        PinyinOutputFormat format = new PinyinOutputFormat(req["toneType"], req["caseType"], req["vType"]);
+
+                        foreach (char ch in key)
                         {
-                            // 是否只取第一个拼音
-                            if (multi.Equals("first", StringComparison.OrdinalIgnoreCase))
+                            // 是汉字才处理
+                            if (PinyinUtil.IsHanzi(ch))
                             {
-                                string py = Pinyin4Net.GetUniqueOrFirstPinyinWithFormat(ch, format);
-                                // 拼音间追加一个空格，这里如果是多间字，拼音可能不准确
-                                pinyin += py + " ";
+                                // 是否只取第一个拼音
+                                if (multi.Equals("first", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    string py = Pinyin4Net.GetUniqueOrFirstPinyinWithFormat(ch, format);
+                                    // 拼音间追加一个空格，这里如果是多间字，拼音可能不准确
+                                    result += py + " ";
+                                }
+                                else
+                                {
+                                    string[] py = Pinyin4Net.GetPinyinWithFormat(ch, format);
+                                    result += "(" + string.Join(",", py) + ") ";
+                                }
                             }
                             else
-                            {
-                                string[] py = Pinyin4Net.GetPinyinWithFormat(ch, format);
-                                pinyin += "(" + string.Join(",", py) + ") ";
+                            {// 不是汉字直接追加
+                                result += ch.ToString();
                             }
                         }
-                        else
-                        {// 不是汉字直接追加
-                            pinyin += ch.ToString();
-                        }
+                        #endregion
+                    }
+                    else
+                    {
+                        #region // 拼音查汉字
+                        string[] hanzi = Pinyin4Net.GetHanzi(key, true);
+                        result = string.Join(",", hanzi);
+                        #endregion
                     }
                 }
             }
             catch (Exception ex)
             {
-                pinyin = ex.Message;
+                result = ex.Message;
             }
 
-            res.Write(pinyin);
+            res.Write(result);
         }
 
         public bool IsReusable
