@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace hyjiacan.py4n.exception
+﻿namespace hyjiacan.py4n.exception
 {
     /// <summary>
     /// 转换拼音的字符非汉字字符

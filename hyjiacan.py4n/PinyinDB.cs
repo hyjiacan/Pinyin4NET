@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace hyjiacan.py4n
@@ -15,9 +13,6 @@ namespace hyjiacan.py4n
         private static PinyinDB instance;
 
         private Dictionary<string, string[]> map;
-
-        private const string dbname = "pinyin.dat";
-        private string dbpath;
 
         /// <summary>
         ///  获取单实例
@@ -40,8 +35,6 @@ namespace hyjiacan.py4n
         /// </summary>
         private PinyinDB()
         {
-            dbpath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dbname);
-
             map = new Dictionary<string, string[]>();
 
             loadResource();
@@ -52,28 +45,24 @@ namespace hyjiacan.py4n
         /// </summary>
         private void loadResource()
         {
-            using (StreamReader reader = new StreamReader(dbpath))
+            string data = PinyinDbResource.data;
+
+            string code = string.Empty;
+            string pinyin = string.Empty;
+
+            foreach (string buf in data.Split('\n'))
             {
-                string buf = string.Empty;
-                string code = string.Empty;
-                string pinyin = string.Empty;
-
-                while (!reader.EndOfStream)
+                if (string.IsNullOrEmpty(buf))
                 {
-                    buf = reader.ReadLine();
-
-                    if (string.IsNullOrEmpty(buf))
-                    {
-                        continue;
-                    }
-                    // 取unicode码 
-                    code = buf.Substring(0, 4);
-
-                    // 取拼音串 去掉环绕拼音的括号
-                    pinyin = buf.Substring(5).Trim('(', ')');
-
-                    map.Add(code, pinyin.Split(','));
+                    continue;
                 }
+                // 取unicode码 
+                code = buf.Substring(0, 4);
+
+                // 取拼音串 去掉环绕拼音的括号
+                pinyin = buf.Trim().Substring(5).Trim('(', ')');
+
+                map.Add(code, pinyin.Split(','));
             }
         }
         /// <summary>

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace hyjiacan.py4n
+﻿namespace hyjiacan.py4n
 {
     /// <summary>
     /// 拼音工具类

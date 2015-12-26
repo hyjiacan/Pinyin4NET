@@ -1,7 +1,5 @@
 ﻿using hyjiacan.py4n.format;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace hyjiacan.py4n
 {

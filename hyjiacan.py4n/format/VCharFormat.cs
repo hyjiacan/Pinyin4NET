@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace hyjiacan.py4n.format
+﻿namespace hyjiacan.py4n.format
 {
     /// <summary>
     /// V(ü)字符格式

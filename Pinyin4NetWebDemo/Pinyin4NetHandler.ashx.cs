@@ -1,6 +1,5 @@
 ﻿using hyjiacan.py4n;
 using System;
-using System.Collections.Generic;
 using System.Web;
 
 namespace Pinyin4NetWebDemo

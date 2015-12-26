@@ -1,6 +1,5 @@
-﻿using System;
+﻿using hyjiacan.py4n.format;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using hyjiacan.py4n.format;
 
 namespace hyjiacan.py4n.test
 {

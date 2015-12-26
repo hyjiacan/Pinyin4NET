@@ -31,15 +31,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="exception\PinyinException.cs" />
     <Compile Include="exception\UnsupportedUnicodeException.cs" />
     <Compile Include="format\CaseFormat.cs" />
     <Compile Include="format\VCharFormat.cs" />
     <Compile Include="Pinyin4Net.cs" />
+    <Compile Include="PinyinDbResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PinyinDbResource.resx</DependentUpon>
+    </Compile>
     <Compile Include="PinyinFormatter.cs" />
     <Compile Include="PinyinDB.cs" />
     <Compile Include="PinyinUtil.cs" />
@@ -48,9 +49,16 @@
     <Compile Include="format\ToneFormat.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="pinyin.dat">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <EmbeddedResource Include="PinyinDbResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PinyinDbResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\data.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
