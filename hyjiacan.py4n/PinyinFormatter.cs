@@ -15,13 +15,13 @@ namespace hyjiacan.py4n
         /// <summary>
         /// 将拼音格式化成指定的格式
         /// </summary>
-        /// <param name="pinyin">待格式化的拼音</param>
+        /// <param name="py">待格式化的拼音</param>
         /// <param name="format">格式</param>
         /// <see cref="ToneFormat"/>
         /// <see cref="CaseFormat"/>
         /// <see cref="VCharFormat"/>
         /// <returns></returns>
-        public static string Format(string pinyin, PinyinOutputFormat format)
+        public static string Format(string py, PinyinOutputFormat format)
         {
             /// "v"或"u:"不能添加声调
             if ((ToneFormat.WITH_TONE_MARK == format.GetToneFormat) &&
@@ -33,7 +33,7 @@ namespace hyjiacan.py4n
             {
                 throw new PinyinException("\"v\"或\"u:\"不能添加声调");
             }
-
+            string pinyin = py;
             if (ToneFormat.WITHOUT_TONE == format.GetToneFormat)
             {
                 // 不带声调
