@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace hyjiacan.py4n
@@ -12,22 +13,14 @@ namespace hyjiacan.py4n
         // 实例
         private static PinyinDB instance;
 
-        private Dictionary<string, string[]> map;
+        private readonly Dictionary<string, string[]> map;
 
         /// <summary>
         ///  获取单实例
         /// </summary>
         public static PinyinDB Instance
         {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new PinyinDB();
-                }
-
-                return instance;
-            }
+            get { return instance ?? (instance = new PinyinDB()); }
         }
 
         /// <summary>
@@ -50,12 +43,8 @@ namespace hyjiacan.py4n
             string code = string.Empty;
             string pinyin = string.Empty;
 
-            foreach (string buf in data.Split('\n'))
+            foreach (string buf in data.Split('\n').Where(buf => !string.IsNullOrEmpty(buf)))
             {
-                if (string.IsNullOrEmpty(buf))
-                {
-                    continue;
-                }
                 // 取unicode码 
                 code = buf.Substring(0, 4);
 
@@ -100,35 +89,17 @@ namespace hyjiacan.py4n
             if (matchAll)
             {
                 // 查询到匹配的拼音的unicode编码
-                foreach (string code in map.Keys)
-                {
-                    foreach (var item in map[code])
-                    {
-                        if (reg.Replace(item, "").Equals(pinyin))
-                        {
-                            // unicode编码转汉字
-                            hanzi.Add(Convert.ToChar(Convert.ToInt32(code, 16)).ToString());
-                            break;
-                        }
-                    }
-                }
+                hanzi.AddRange(from code in map.Keys
+                               where map[code].Any(item => reg.Replace(item, "").Equals(pinyin))
+                               select Convert.ToChar(Convert.ToInt32(code, 16)).ToString());
             }
             // 匹配开头部分
             else
             {
                 // 查询到匹配的拼音的unicode编码
-                foreach (string code in map.Keys)
-                {
-                    foreach (var item in map[code])
-                    {
-                        if (item.StartsWith(pinyin))
-                        {
-                            // unicode编码转汉字
-                            hanzi.Add(Convert.ToChar(Convert.ToInt32(code, 16)).ToString());
-                            break;
-                        }
-                    }
-                }
+                hanzi.AddRange(from code in map.Keys
+                               where map[code].Any(item => item.StartsWith(pinyin))
+                               select Convert.ToChar(Convert.ToInt32(code, 16)).ToString());
             }
 
             return hanzi.ToArray();

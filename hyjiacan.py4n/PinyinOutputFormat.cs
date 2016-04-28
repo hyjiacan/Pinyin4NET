@@ -1,5 +1,5 @@
-﻿using hyjiacan.py4n.format;
-using System;
+﻿using System;
+using hyjiacan.py4n.format;
 
 namespace hyjiacan.py4n
 {
@@ -9,42 +9,24 @@ namespace hyjiacan.py4n
     public class PinyinOutputFormat
     {
         // 声调格式
-        private ToneFormat toneFormat;
         // 大小写格式
-        private CaseFormat caseFormat;
         // 字符v的格式
-        private VCharFormat vCharFormat;
 
         /// <summary>
         /// 获取声调格式
         /// </summary>
-        public ToneFormat GetToneFormat
-        {
-            get
-            {
-                return toneFormat;
-            }
-        }
+        public ToneFormat GetToneFormat { get; private set; }
+
         /// <summary>
         /// 获取大小写格式
         /// </summary>
-        public CaseFormat GetCaseFormat
-        {
-            get
-            {
-                return caseFormat;
-            }
-        }
+        public CaseFormat GetCaseFormat { get; private set; }
+
         /// <summary>
         /// 获取字符v的格式
         /// </summary>
-        public VCharFormat GetVCharFormat
-        {
-            get
-            {
-                return vCharFormat;
-            }
-        }
+        public VCharFormat GetVCharFormat { get; private set; }
+
         /// <summary>
         /// 使用默认值初始化输出格式
         /// ToneFormat.WITH_TONE_MARK,
@@ -53,9 +35,9 @@ namespace hyjiacan.py4n
         /// </summary>
         public PinyinOutputFormat()
         {
-            toneFormat = ToneFormat.WITH_TONE_MARK;
-            caseFormat = CaseFormat.LOWERCASE;
-            vCharFormat = VCharFormat.WITH_U_UNICODE;
+            GetToneFormat = ToneFormat.WITH_TONE_MARK;
+            GetCaseFormat = CaseFormat.LOWERCASE;
+            GetVCharFormat = VCharFormat.WITH_U_UNICODE;
         }
         /// <summary>
         /// 通过构造初始化输入格式
@@ -88,9 +70,9 @@ namespace hyjiacan.py4n
         /// <param name="vCharFormat">字符V的格式</param>
         public void SetFormat(ToneFormat toneFormat, CaseFormat caseFormat, VCharFormat vCharFormat)
         {
-            this.toneFormat = toneFormat;
-            this.caseFormat = caseFormat;
-            this.vCharFormat = vCharFormat;
+            GetToneFormat = toneFormat;
+            GetCaseFormat = caseFormat;
+            GetVCharFormat = vCharFormat;
         }
         /// <summary>
         /// 设置输入格式
@@ -105,17 +87,17 @@ namespace hyjiacan.py4n
         {
             if (!string.IsNullOrEmpty(toneFormat))
             {
-                this.toneFormat = (ToneFormat)Enum.Parse(typeof(ToneFormat), toneFormat);
+                GetToneFormat = (ToneFormat)Enum.Parse(typeof(ToneFormat), toneFormat);
             }
 
             if (!string.IsNullOrEmpty(caseFormat))
             {
-                this.caseFormat = (CaseFormat)Enum.Parse(typeof(CaseFormat), caseFormat);
+                GetCaseFormat = (CaseFormat)Enum.Parse(typeof(CaseFormat), caseFormat);
             }
 
             if (!string.IsNullOrEmpty(vCharFormat))
             {
-                this.vCharFormat = (VCharFormat)Enum.Parse(typeof(VCharFormat), vCharFormat);
+                GetVCharFormat = (VCharFormat)Enum.Parse(typeof(VCharFormat), vCharFormat);
             }
         }
     }

@@ -1,4 +1,6 @@
-﻿namespace hyjiacan.py4n
+﻿using System.Text.RegularExpressions;
+
+namespace hyjiacan.py4n
 {
     /// <summary>
     /// 拼音工具类
@@ -12,7 +14,7 @@
         /// <returns></returns>
         public static bool IsHanzi(char ch)
         {
-            return System.Text.RegularExpressions.Regex.IsMatch(ch.ToString(), @"[\u4e00-\u9fbb]");
+            return Regex.IsMatch(ch.ToString(), @"[\u4e00-\u9fbb]");
         }
     }
 }

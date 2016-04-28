@@ -1,7 +1,8 @@
-﻿using hyjiacan.py4n.exception;
-using hyjiacan.py4n.format;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using hyjiacan.py4n.exception;
+using hyjiacan.py4n.format;
 
 namespace hyjiacan.py4n
 {
@@ -20,11 +21,8 @@ namespace hyjiacan.py4n
             {
                 return PinyinDB.Instance.GetPinyin(hanzi);
             }
-            else
-            {
-                // 不是汉字
-                throw new UnsupportedUnicodeException("不支持的字符: 请输入汉字字符");
-            }
+            // 不是汉字
+            throw new UnsupportedUnicodeException("不支持的字符: 请输入汉字字符");
         }
 
         /// <summary>
@@ -48,13 +46,7 @@ namespace hyjiacan.py4n
         /// <exception cref="UnsupportedUnicodeException">当要获取拼音的字符不是汉字时抛出此异常</exception>
         public static string[] GetPinyinWithFormat(char hanzi, PinyinOutputFormat format)
         {
-            List<string> fmtedPY = new List<string>();
-            foreach (string item in GetPinyin(hanzi))
-            {
-                fmtedPY.Add(PinyinFormatter.Format(item, format));
-            }
-
-            return fmtedPY.ToArray();
+            return GetPinyin(hanzi).Select(item => PinyinFormatter.Format(item, format)).ToArray();
         }
 
         /// <summary>
@@ -88,77 +80,68 @@ namespace hyjiacan.py4n
         {
             StringBuilder pinyin = new StringBuilder();
             List<string> firstLetterBuf = new List<string>();
-            if (!string.IsNullOrEmpty(text))
+            if (string.IsNullOrEmpty(text)) return pinyin.ToString().Trim();
+
+            foreach (char item in text)
             {
-                foreach (char item in text)
+                if (!PinyinUtil.IsHanzi(item))
                 {
-                    if (!PinyinUtil.IsHanzi(item))
-                    {
-                        pinyin.Append(item);
-                        continue;
-                    }
-
-                    if (firstLetterOnly)
-                    {
-                        if (multiFirstLetter)
-                        {
-                            firstLetterBuf.Clear();
-                            foreach (string py in GetPinyin(item))
-                            {
-                                // 处理多音字拼音首字母相同的情况
-                                if (!firstLetterBuf.Contains(py[0].ToString()))
-                                {
-                                    firstLetterBuf.Add(py[0].ToString());
-                                }
-                            }
-
-                            pinyin.AppendFormat("[{0}] ", string.Join(",", firstLetterBuf.ToArray()));
-                        }
-                        else
-                        {
-                            pinyin.AppendFormat("[{0}] ", GetUniqueOrFirstPinyin(item)[0]);
-                        }
-                    }
-                    else
-                    {
-                        pinyin.Append(GetUniqueOrFirstPinyinWithFormat(item, format) + " ");
-                    }
-
+                    pinyin.Append(item);
+                    continue;
                 }
-                #region // 扩展大小写格式
-                if (!firstLetterOnly && caseSpread)
+
+                if (!firstLetterOnly)
                 {
-                    string[] temp = null;
-                    switch (format.GetCaseFormat)
-                    {
-                        case CaseFormat.CAPITALIZE_FIRST_LETTER:
-                            temp = pinyin.ToString().Split(' ');
-                            pinyin.Length = 0;
-
-                            foreach (string item in temp)
-                            {
-                                pinyin.Append(item.Substring(0, 1).ToUpper());
-                                if (item.Length > 1)
-                                {
-                                    pinyin.Append(item.Substring(1));
-                                }
-                                pinyin.Append(" ");
-                            }
-                            break;
-                        case CaseFormat.LOWERCASE:
-                            temp = new string[] { pinyin.ToString() };
-                            pinyin.Length = 0;
-                            pinyin.Append(temp[0].ToLower());
-                            break;
-                        case CaseFormat.UPPERCASE:
-                            temp = new string[] { pinyin.ToString() };
-                            pinyin.Length = 0;
-                            pinyin.Append(temp[0].ToUpper());
-                            break;
-                    }
+                    pinyin.Append(GetUniqueOrFirstPinyinWithFormat(item, format) + " ");
+                    continue;
                 }
-                #endregion
+                if (!multiFirstLetter)
+                {
+                    pinyin.AppendFormat("[{0}] ", GetUniqueOrFirstPinyin(item)[0]);
+                    continue;
+                }
+
+                firstLetterBuf.Clear();
+
+                firstLetterBuf.AddRange(GetPinyin(item)
+                    .Where(py => !firstLetterBuf.Contains(py[0].ToString()))
+                    .Select(py => py[0].ToString()));
+
+                pinyin.AppendFormat("[{0}] ", string.Join(",", firstLetterBuf.ToArray()));
             }
+            #region // 扩展大小写格式
+            if (!firstLetterOnly && caseSpread)
+            {
+                string[] temp = null;
+                switch (format.GetCaseFormat)
+                {
+                    case CaseFormat.CAPITALIZE_FIRST_LETTER:
+                        temp = pinyin.ToString().Split(' ');
+                        pinyin.Length = 0;
+
+                        foreach (string item in temp)
+                        {
+                            pinyin.Append(item.Substring(0, 1).ToUpper());
+                            if (item.Length > 1)
+                            {
+                                pinyin.Append(item.Substring(1));
+                            }
+                            pinyin.Append(" ");
+                        }
+                        break;
+                    case CaseFormat.LOWERCASE:
+                        temp = new[] { pinyin.ToString() };
+                        pinyin.Length = 0;
+                        pinyin.Append(temp[0].ToLower());
+                        break;
+                    case CaseFormat.UPPERCASE:
+                        temp = new[] { pinyin.ToString() };
+                        pinyin.Length = 0;
+                        pinyin.Append(temp[0].ToUpper());
+                        break;
+                }
+            }
+            #endregion
 
             return pinyin.ToString().Trim();
         }
