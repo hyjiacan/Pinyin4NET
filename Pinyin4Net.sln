@@ -1,13 +1,24 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTestProject\UnitTestProject.csproj", "{EB2B5623-6C73-4BFC-9ED6-6FA3B226E946}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{92F91109-4EE7-4338-9434-16665C3CAF58}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pinyin4NetWebDemo", "Pinyin4NetWebDemo\Pinyin4NetWebDemo.csproj", "{E828CD27-C7D1-4487-89E0-A2D1DA016B18}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9EDBE00B-EBD3-4C93-A9AA-821F81545428}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hyjiacan.py4n", "hyjiacan.py4n\hyjiacan.py4n.csproj", "{A97825FF-42D0-4BF3-8EC6-071E99FCAD63}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{C187DE90-CE07-446F-9FF1-A20E76DC15BB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "demo", "demo", "{AA8B4C25-1DC2-4F5A-9F13-7C2C826997AD}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Pinyin4NetWebDemo", "demo\Pinyin4NetWebDemo\Pinyin4NetWebDemo.xproj", "{AF654FE1-73F9-4BEA-8516-7C030DEC36C9}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "hyjiacan.py4n", "src\hyjiacan.py4n\hyjiacan.py4n.xproj", "{FA0076AD-09AE-4AAF-8E59-7622649D8776}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "PinyinDBTest", "test\UnitTestProcject\PinyinDBTest.xproj", "{CED9D125-B1EF-400A-9C04-F4111578E4B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,23 +26,25 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EB2B5623-6C73-4BFC-9ED6-6FA3B226E946}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EB2B5623-6C73-4BFC-9ED6-6FA3B226E946}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EB2B5623-6C73-4BFC-9ED6-6FA3B226E946}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EB2B5623-6C73-4BFC-9ED6-6FA3B226E946}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E828CD27-C7D1-4487-89E0-A2D1DA016B18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E828CD27-C7D1-4487-89E0-A2D1DA016B18}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E828CD27-C7D1-4487-89E0-A2D1DA016B18}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E828CD27-C7D1-4487-89E0-A2D1DA016B18}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A97825FF-42D0-4BF3-8EC6-071E99FCAD63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A97825FF-42D0-4BF3-8EC6-071E99FCAD63}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A97825FF-42D0-4BF3-8EC6-071E99FCAD63}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A97825FF-42D0-4BF3-8EC6-071E99FCAD63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF654FE1-73F9-4BEA-8516-7C030DEC36C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF654FE1-73F9-4BEA-8516-7C030DEC36C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF654FE1-73F9-4BEA-8516-7C030DEC36C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF654FE1-73F9-4BEA-8516-7C030DEC36C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA0076AD-09AE-4AAF-8E59-7622649D8776}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA0076AD-09AE-4AAF-8E59-7622649D8776}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA0076AD-09AE-4AAF-8E59-7622649D8776}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA0076AD-09AE-4AAF-8E59-7622649D8776}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CED9D125-B1EF-400A-9C04-F4111578E4B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CED9D125-B1EF-400A-9C04-F4111578E4B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CED9D125-B1EF-400A-9C04-F4111578E4B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CED9D125-B1EF-400A-9C04-F4111578E4B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = Pinyin4Net.vsmdi
+	GlobalSection(NestedProjects) = preSolution
+		{AF654FE1-73F9-4BEA-8516-7C030DEC36C9} = {AA8B4C25-1DC2-4F5A-9F13-7C2C826997AD}
+		{FA0076AD-09AE-4AAF-8E59-7622649D8776} = {9EDBE00B-EBD3-4C93-A9AA-821F81545428}
+		{CED9D125-B1EF-400A-9C04-F4111578E4B4} = {C187DE90-CE07-446F-9FF1-A20E76DC15BB}
 	EndGlobalSection
 EndGlobal
