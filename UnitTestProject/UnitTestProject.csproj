@@ -53,6 +53,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="NameDBTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PinyinDBTest.cs" />
   </ItemGroup>

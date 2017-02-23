@@ -16,7 +16,7 @@
                 if (e.keyCode == 13) {
                     var key = me.val().trim();
 
-                    $.get('Pinyin4NetHandler.ashx', {
+                    $.post('Pinyin4NetHandler.ashx', {
                         dt: new Date().getTime(),
                         key: key,
                         cmd: me.attr('data-cmd'),
@@ -110,7 +110,7 @@
                 </div>
             </div>
         </div>
-        代码：<a href="http://www.hyjiacan.com/post/pinyin4net/?from=py4n" target="_blank">PINYIN4NET .NET 使用的拼音库</a>
+        代码：<a href="http://git.oschina.net/hyjiacan/Plugin.NET?from=py4n" target="_blank">PINYIN4NET .NET 使用的拼音库</a>
     </div>
 </body>
 </html>

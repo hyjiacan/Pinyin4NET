@@ -1,8 +1,12 @@
+# Pinyin4NET
+.net环境下使用的拼音-汉字互转库。
+
 1. 代码重构，使用Pinyin4J 的拼音数据库。
 2. 如果输入的字符不是汉字，则会抛出异常。
 
 ## 用法
-```
+
+```csharp
 // 设置拼音输出格式
 PinyinOutputFormat format = new PinyinOutputFormat(ToneFormat.WITHOUT_TONE, CaseFormat.LOWERCASE, VCharFormat.WITH_U_UNICODE);
 char hanzi = '李';

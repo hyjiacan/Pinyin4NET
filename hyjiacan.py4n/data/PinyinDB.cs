@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace hyjiacan.py4n
+namespace hyjiacan.py4n.data
 {
     /// <summary>
     /// 拼音数据库文件操作（单实例类）
