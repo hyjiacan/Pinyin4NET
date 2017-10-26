@@ -38,12 +38,12 @@ namespace hyjiacan.py4n.data
         /// </summary>
         private void loadResource()
         {
-            string data = PinyinDbResource.data;
+            var data = PinyinDbResource.data;
 
-            string code = string.Empty;
-            string pinyin = string.Empty;
+            var code = string.Empty;
+            var pinyin = string.Empty;
 
-            foreach (string buf in data.Split('\n').Where(buf => !string.IsNullOrEmpty(buf)))
+            foreach (var buf in data.Split('\n').Where(buf => !string.IsNullOrEmpty(buf)))
             {
                 // 取unicode码 
                 code = buf.Substring(0, 4);
@@ -65,7 +65,7 @@ namespace hyjiacan.py4n.data
             // 汉字转换成十进制unicode编码
             int decCode = hanzi;
             // 十进制unicode编码转换成十六进制编码
-            string code = decCode.ToString("x").ToUpper();
+            var code = decCode.ToString("x").ToUpper();
 
             if (map.ContainsKey(code))
             {
@@ -76,15 +76,15 @@ namespace hyjiacan.py4n.data
         }
 
         /// <summary>
-        /// 根据拼音获取汉字
+        /// 根据单个拼音获取汉字
         /// </summary>
-        /// <param name="pinyin">拼音</param>
-        /// <param name="matchAll">是否全部匹配，为true时，匹配整个拼音，否则匹配开头字符</param>
+        /// <param name="pinyin">单个拼音</param>
+        /// <param name="matchAll">是否完整匹配，为true时，匹配整个拼音，否则匹配开头字符</param>
         /// <returns></returns>
         public string[] GetHanzi(string pinyin, bool matchAll)
         {
-            List<string> hanzi = new List<string>();
-            Regex reg = new Regex("[0-9]");
+            var hanzi = new List<string>();
+            var reg = new Regex("[0-9]");
             // 完全匹配
             if (matchAll)
             {

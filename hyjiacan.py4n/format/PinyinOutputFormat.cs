@@ -1,7 +1,6 @@
 ﻿using System;
-using hyjiacan.py4n.format;
 
-namespace hyjiacan.py4n
+namespace hyjiacan.py4n.format
 {
     /// <summary>
     /// 拼音输出格式

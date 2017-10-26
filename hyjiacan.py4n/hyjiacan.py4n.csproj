@@ -43,17 +43,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PinyinDbResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="PinyinFormatter.cs" />
+    <Compile Include="format\PinyinFormatter.cs" />
     <Compile Include="data\PinyinDB.cs" />
     <Compile Include="PinyinUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PinyinOutputFormat.cs" />
+    <Compile Include="format\PinyinOutputFormat.cs" />
     <Compile Include="format\ToneFormat.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="PinyinDbResource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>PinyinDbResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

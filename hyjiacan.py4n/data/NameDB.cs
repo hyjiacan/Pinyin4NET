@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace hyjiacan.py4n.data
@@ -39,19 +37,16 @@ namespace hyjiacan.py4n.data
         /// </summary>
         private void loadResource()
         {
-            string data = PinyinDbResource.name;
+            var data = PinyinDbResource.name;
 
-            string name = string.Empty;
-            string pinyin = string.Empty;
-
-            foreach (string buf in data.Split('\n').Where(buf => !string.IsNullOrEmpty(buf)))
+            foreach (var buf in data.Split('\n').Where(buf => !string.IsNullOrEmpty(buf)))
             {
                 var temp = buf.Split('=');
                 // 取姓
-                name = temp[0];
+                var name = temp[0];
 
                 // 取拼音串 小心有个 \r 的回车符号
-                pinyin = temp[1].Trim();
+                var pinyin = temp[1].Trim();
 
                 map.Add(name, pinyin.Replace('-', ' '));
             }
@@ -70,11 +65,11 @@ namespace hyjiacan.py4n.data
         /// 根据拼音获取汉字
         /// </summary>
         /// <param name="pinyin">拼音</param>
-        /// <param name="matchAll">是否全部匹配，为true时，匹配整个拼音，否则匹配开头字符</param>
+        /// <param name="matchAll">是否全部匹配，为true时，匹配整个拼音，否则匹配开头字符，此参数用于告知传入的拼音是完整拼音还是仅仅是声母</param>
         /// <returns></returns>
         public string[] GetHanzi(string pinyin, bool matchAll)
         {
-            Regex reg = new Regex("[0-9]");
+            var reg = new Regex("[0-9]");
             // 完全匹配
             if (matchAll)
             {

@@ -1,5 +1,6 @@
 ﻿using hyjiacan.py4n.format;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+// ReSharper disable MemberCanBeMadeStatic.Local
 
 namespace hyjiacan.py4n.test
 {
@@ -45,8 +46,8 @@ namespace hyjiacan.py4n.test
         [TestMethod]
         public void FirstLetterOfName()
         {
-            string pinyin = Pinyin4Name.GetFirstLetter("李");
-            Assert.AreEqual<string>("l", pinyin);
+            var pinyin = Pinyin4Name.GetFirstLetter("李");
+            Assert.AreEqual("l", pinyin);
         }
 
         /// <summary>
@@ -55,10 +56,19 @@ namespace hyjiacan.py4n.test
         [TestMethod]
         public void FirstOfMultiPinyinName()
         {
-            string pinyin = Pinyin4Name.GetFirstLetter("单于");
-            Assert.AreEqual<string>("c y", pinyin);
+            var pinyin = Pinyin4Name.GetFirstLetter("单于");
+            Assert.AreEqual("c y", pinyin);
         }
 
+        /// <summary>
+        /// 不存在的姓
+        /// </summary>
+        [TestMethod]
+        public void NonExistsName()
+        {
+            var pinyin = Pinyin4Name.GetFirstLetter("佳");
+            Assert.IsNull(pinyin);
+        }
 
         /// <summary>
         /// 测试输出格式
@@ -66,7 +76,7 @@ namespace hyjiacan.py4n.test
         [TestMethod]
         public void FormatTest1()
         {
-            PinyinOutputFormat format = new PinyinOutputFormat(ToneFormat.WITH_TONE_MARK, CaseFormat.LOWERCASE, VCharFormat.WITH_U_UNICODE);
+            var format = new PinyinOutputFormat(ToneFormat.WITH_TONE_MARK, CaseFormat.LOWERCASE, VCharFormat.WITH_U_UNICODE);
             PinyinFormatAssert("李", "lĭ", format);
             PinyinFormatAssert("单于", "chán yú", format);
             PinyinFormatAssert("乐", "yuè", format);
@@ -80,7 +90,7 @@ namespace hyjiacan.py4n.test
         [TestMethod]
         public void FormatTest2()
         {
-            PinyinOutputFormat format = new PinyinOutputFormat();
+            var format = new PinyinOutputFormat();
             PinyinFormatAssert("李", "lĭ", format);
             PinyinFormatAssert("单于", "chán yú", format);
             PinyinFormatAssert("乐", "yuè", format);
@@ -94,7 +104,7 @@ namespace hyjiacan.py4n.test
         [TestMethod]
         public void FormatTest3()
         {
-            PinyinOutputFormat format = new PinyinOutputFormat(null, CaseFormat.CAPITALIZE_FIRST_LETTER.ToString(), VCharFormat.WITH_U_UNICODE.ToString());
+            var format = new PinyinOutputFormat(null, CaseFormat.CAPITALIZE_FIRST_LETTER.ToString(), VCharFormat.WITH_U_UNICODE.ToString());
             PinyinFormatAssert("李", "Lĭ", format);
             PinyinFormatAssert("单于", "Chán Yú", format);
             PinyinFormatAssert("乐", "Yuè", format);
@@ -107,7 +117,7 @@ namespace hyjiacan.py4n.test
         [TestMethod]
         public void FormatTest4()
         {
-            PinyinOutputFormat format = new PinyinOutputFormat(null, CaseFormat.UPPERCASE.ToString(), VCharFormat.WITH_U_UNICODE.ToString());
+            var format = new PinyinOutputFormat(null, CaseFormat.UPPERCASE.ToString(), VCharFormat.WITH_U_UNICODE.ToString());
             PinyinFormatAssert("李", "LĬ", format);
             PinyinFormatAssert("单于", "CHÁN YÚ", format);
             PinyinFormatAssert("乐", "YUÈ", format);
@@ -172,19 +182,21 @@ namespace hyjiacan.py4n.test
         /// <param name="expected"></param>
         private void HanziAssert(string hanzi, string expected)
         {
-            string actual = Pinyin4Name.GetPinyin(hanzi);
-            Assert.AreEqual<string>(expected, actual);
+            var actual = Pinyin4Name.GetPinyin(hanzi);
+            Assert.AreEqual(expected, actual);
         }
+
         /// <summary>
         /// 判断拼音格式
         /// </summary>
         /// <param name="hanzi"></param>
         /// <param name="expected"></param>
+        /// <param name="format"></param>
         private void PinyinFormatAssert(string hanzi, string expected, PinyinOutputFormat format)
         {
-            string fmted = Pinyin4Name.GetPinyinWithFormat(hanzi, format);
+            var fmted = Pinyin4Name.GetPinyinWithFormat(hanzi, format);
 
-            Assert.AreEqual<string>(expected, fmted);
+            Assert.AreEqual(expected, fmted);
         }
 
         /// <summary>
@@ -194,10 +206,10 @@ namespace hyjiacan.py4n.test
         /// <param name="actual"></param>
         private void assertArrayAreEquals(string[] expected, string[] actual)
         {
-            Assert.AreEqual<int>(expected.Length, actual.Length);
-            for (int i = 0; i < expected.Length; i++)
+            Assert.AreEqual(expected.Length, actual.Length);
+            for (var i = 0; i < expected.Length; i++)
             {
-                Assert.AreEqual<string>(expected[i], actual[i]);
+                Assert.AreEqual(expected[i], actual[i]);
             }
         }
     }

@@ -14,8 +14,8 @@ namespace hyjiacan.py4n
         /// <summary>
         /// 获取汉字的拼音数组
         /// </summary>
-        /// <param name="hanzi"></param>
-        /// <returns>若未找到汉字拼音，则返回空数组</returns>
+        /// <param name="hanzi">要查询拼音的汉字字符</param>
+        /// <returns>汉字的拼音数组，若未找到汉字拼音，则返回空数组</returns>
         /// <exception cref="UnsupportedUnicodeException">当要获取拼音的字符不是汉字时抛出此异常</exception>
         public static string[] GetPinyin(char hanzi)
         {
@@ -30,8 +30,8 @@ namespace hyjiacan.py4n
         /// <summary>
         /// 获取唯一拼音(单音字)或者第一个拼音(多音字)
         /// </summary>
-        /// <param name="hanzi"></param>
-        /// <returns></returns>
+        /// <param name="hanzi">要查询拼音的汉字字符</param>
+        /// <returns>返回唯一拼音(单音字)或者第一个拼音(多音字)</returns>
         /// <exception cref="UnsupportedUnicodeException">当要获取拼音的字符不是汉字时抛出此异常</exception>
         public static string GetUniqueOrFirstPinyin(char hanzi)
         {
@@ -40,11 +40,11 @@ namespace hyjiacan.py4n
         /// <summary>
         /// 获取格式化后的拼音
         /// </summary>
-        /// <param name="hanzi"></param>
-        /// <param name="format"></param>
+        /// <param name="hanzi">要查询拼音的汉字字符</param>
+        /// <param name="format">拼音输出格式化参数</param>
         /// <see cref="PinyinOutputFormat"/>
         /// <seealso cref="PinyinFormatter"/>
-        /// <returns></returns>
+        /// <returns>经过格式化的拼音</returns>
         /// <exception cref="UnsupportedUnicodeException">当要获取拼音的字符不是汉字时抛出此异常</exception>
         public static string[] GetPinyinWithFormat(char hanzi, PinyinOutputFormat format)
         {
@@ -54,11 +54,11 @@ namespace hyjiacan.py4n
         /// <summary>
         /// 获取格式化后的唯一拼音(单音字)或者第一个拼音(多音字)
         /// </summary>
-        /// <param name="hanzi"></param>
-        /// <param name="format"></param>
+        /// <param name="hanzi">要查询拼音的汉字字符</param>
+        /// <param name="format">拼音输出格式化参数</param>
         /// <see cref="PinyinOutputFormat"/>
         /// <seealso cref="PinyinFormatter"/>
-        /// <returns></returns>
+        /// <returns>格式化后的唯一拼音(单音字)或者第一个拼音(多音字)</returns>
         /// <exception cref="UnsupportedUnicodeException">当要获取拼音的字符不是汉字时抛出此异常</exception>
         public static string GetUniqueOrFirstPinyinWithFormat(char hanzi, PinyinOutputFormat format)
         {
@@ -69,8 +69,8 @@ namespace hyjiacan.py4n
         /// <summary>
         /// 获取一个字符串内所有汉字的拼音（多音字取第一个读音，带格式）
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="format">拼音格式</param>
+        /// <param name="text">要获取拼音的汉字字符串</param>
+        /// <param name="format">拼音输出格式化参数</param>
         /// <param name="caseSpread">是否将前面的格式中的大小写扩展到其它非拼音字符，默认为false。firstLetterOnly为false时有效 </param>
         /// <param name="firstLetterOnly">是否只取拼音首字母，为true时，format无效</param>
         /// <param name="multiFirstLetter">firstLetterOnly为true时有效，多音字的多个读音首字母是否全取，如果多音字拼音首字母相同，只保留一个</param>
@@ -79,10 +79,10 @@ namespace hyjiacan.py4n
         {
             if (string.IsNullOrEmpty(text)) return "";
 
-            StringBuilder pinyin = new StringBuilder();
-            List<string> firstLetterBuf = new List<string>();
+            var pinyin = new StringBuilder();
+            var firstLetterBuf = new List<string>();
 
-            foreach (char item in text)
+            foreach (var item in text)
             {
                 if (!PinyinUtil.IsHanzi(item))
                 {
@@ -123,21 +123,21 @@ namespace hyjiacan.py4n
                 case CaseFormat.CAPITALIZE_FIRST_LETTER:
                     return CapitalizeFirstLetter(pinyin);
                 case CaseFormat.LOWERCASE:
-                    return pinyin.ToString().ToLower();
+                    return pinyin.ToString().Trim().ToLower();
                 case CaseFormat.UPPERCASE:
-                    return pinyin.ToString().ToUpper();
+                    return pinyin.ToString().Trim().ToUpper();
                 default:
-                    return pinyin.ToString();
+                    return pinyin.ToString().Trim();
             }
             #endregion
         }
 
         /// <summary>
-        /// 
+        /// 获取一个字符串内所有汉字的拼音（多音字取第一个读音，带格式）
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="format"></param>
-        /// <param name="caseSpread"></param>
+        /// <param name="text">要获取拼音的汉字字符串</param>
+        /// <param name="format">拼音输出格式化参数</param>
+        /// <param name="caseSpread">是否将前面的格式中的大小写扩展到其它非拼音字符，默认为false。firstLetterOnly为false时有效 </param>
         /// <param name="pinyinHandler">
         /// 拼音处理器，在获取到拼音后通过这个来处理，
         /// 如果传null，则默认取第一个拼音（多音字），
@@ -147,15 +147,15 @@ namespace hyjiacan.py4n
         /// 3 string 要转成拼音的字符串
         /// return 拼音字符串，这个返回值将作为这个汉字的拼音放到结果中
         /// </param>
-        /// <returns></returns>
+        /// <returns>firstLetterOnly为true时，只取拼音首字母格式为[L]，后面追加空格；multiFirstLetter为true时，多音字的多个拼音首字母格式为[L, H]，后面追加空格</returns>
         public static string GetPinyin(string text, PinyinOutputFormat format, bool caseSpread, Func<string[], char, string, string> pinyinHandler)
         {
             if (string.IsNullOrEmpty(text)) return "";
 
-            StringBuilder pinyin = new StringBuilder();
-            List<string> firstLetterBuf = new List<string>();
+            var pinyin = new StringBuilder();
+            var firstLetterBuf = new List<string>();
 
-            foreach (char item in text)
+            foreach (var item in text)
             {
                 if (!PinyinUtil.IsHanzi(item))
                 {
@@ -186,7 +186,7 @@ namespace hyjiacan.py4n
             switch (format.GetCaseFormat)
             {
                 case CaseFormat.CAPITALIZE_FIRST_LETTER:
-                    return CapitalizeFirstLetter(pinyin);
+                    return CapitalizeFirstLetter(pinyin).Trim();
                 case CaseFormat.LOWERCASE:
                     return pinyin.ToString().ToLower();
                 case CaseFormat.UPPERCASE:
@@ -200,17 +200,17 @@ namespace hyjiacan.py4n
         /// <summary>
         /// 获取一个字符串内所有汉字的拼音（多音字取第一个读音，带格式），format中指定的大小写模式不会扩展到非拼音字符
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="format">拼音格式</param>
-        /// <returns></returns>
+        /// <param name="text">要获取拼音的汉字字符串</param>
+        /// <param name="format">拼音输出格式化参数</param>
+        /// <returns>格式化后的拼音字符串</returns>
         public static string GetPinyin(string text, PinyinOutputFormat format)
         {
             return GetPinyin(text, format, false, false, false);
         }
         /// <summary>
-        /// 根据拼音查询匹配的汉字
+        /// 根据单个拼音查询匹配的汉字
         /// </summary>
-        /// <param name="pinyin"></param>
+        /// <param name="pinyin">要查询汉字的单个拼音</param>
         /// <param name="matchAll">是否全部匹配，为true时，匹配整个拼音，否则匹配开头字符</param>
         /// <returns></returns>
         public static string[] GetHanzi(string pinyin, bool matchAll)
@@ -226,7 +226,7 @@ namespace hyjiacan.py4n
         private static string CapitalizeFirstLetter(StringBuilder buffer)
         {
             // 遇到空格后，将后面一个非空格的字符设置为大写
-            for (int i = 0; i < buffer.Length; i++)
+            for (var i = 0; i < buffer.Length; i++)
             {
                 if (buffer[i] != ' ')
                 {
@@ -247,7 +247,7 @@ namespace hyjiacan.py4n
                     continue;
                 }
 
-                buffer[i + 1] = Char.ToUpper(nextchar);
+                buffer[i + 1] = char.ToUpper(nextchar);
             }
 
             return buffer.ToString();
