@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.6;netstandard2.0;NETCOREAPP1.0;NETCOREAPP1.1;NETCOREAPP2.0;net40;net45;</TargetFrameworks>
+    <TargetFrameworks>NETSTANDARD1.6;NETSTANDARD2.0;NETCOREAPP1.0;NETCOREAPP1.1;NETCOREAPP2.0;NET40;NET45;</TargetFrameworks>
     <Product>.NET 拼音库</Product>
     <PackageId>hyjiacan.py4n</PackageId>
     <Description>.NET 拼音库</Description>

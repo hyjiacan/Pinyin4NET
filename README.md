@@ -30,7 +30,14 @@ git clone https://github.com/hyjiacan/Pinyin4Net.git
 
 ## 编译
 
-开发环境已切换为 [Visual Studio Code](https://code.visualstudio.com/)
+> 注：开发环境已切换为 [Visual Studio Code](https://code.visualstudio.com/)
+
+执行项目目录下的*build.bat*/*build.sh*可以直接开始生成所有支持的目标的**Release**版本，
+若需要生成某个版本，请参考以下命令。
+
+```shell
+cd hyjiacan.py4n
+```
 
 编译**DEBUG**版本
 
@@ -54,16 +61,36 @@ dotnet build -f net40
 
 当前配置可以使用的版本如下：
 
-- net40
-- net45
+- NET40
+- NET45
 - NETCOREAPP1.0
 - NETCOREAPP1.1
 - NETCOREAPP2.0
-- netstandard1.6
-- netstandard2.0
+- NETSTANDARD1.6
+- NETSTANDARD2.0
 
 > 若要编译成其它的目标版本，需要自行修改*hyjiacan.py4n.csptoj*里面的`TargetFrameworks`节点，
 > 版本名称见[How to target the .NET Framework](https://docs.microsoft.com/en-us/dotnet/core/tutorials/libraries#how-to-target-the-net-framework)
+
+## 单元测试
+
+> 单元测试需要安装对应的.net版本
+
+```shell
+cd UnitTestProject
+```
+
+运行所有版本的测试
+```shell
+dotnet test
+```
+
+运行指定版本的测试
+```shell
+dotnet test -f net40
+```
+
+> 注意：.net4.0 或以下版本不支持`MsTest`单元测试
 
 ## 接口
 
