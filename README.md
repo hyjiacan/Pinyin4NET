@@ -1,7 +1,7 @@
 # Pinyin4NET
 .net环境下使用的拼音-汉字互转库。
 
-支持以下目标版本:
+所有的目标版本都在这一个分支上，现支持以下目标版本:
 - net4.0
 - net4.5
 - netcore1.0
@@ -91,6 +91,16 @@ dotnet test -f net40
 ```
 
 > 注意：.net4.0 或以下版本不支持`MsTest`单元测试
+
+## WebDemo
+
+> Demo网站基于**.NETCORE2.0**
+
+```shell
+cd WebDemo
+dotnet build
+dotnet run
+```
 
 ## 接口
 
