@@ -1,6 +1,70 @@
 # Pinyin4NET
 .net环境下使用的拼音-汉字互转库。
 
+支持以下目标版本:
+- net4.0
+- net4.5
+- netcore1.0
+- netcore1.1
+- netcore2.0
+- netstandard1.6
+- netstandard2.0
+
+.NET版本对应关系参见 [How to target the .NET Standard](https://docs.microsoft.com/en-us/dotnet/core/tutorials/libraries#how-to-target-the-net-standard)
+
+
+
+## 获取源码与发行版
+
+GitHub [zip](https://github.com/hyjiacan/Pinyin4Net/archive/master.zip)
+```shell
+git clone https://gitee.com/hyjiacan/Pinyin4Net.git
+```
+
+码云 [zip](https://gitee.com/hyjiacan/Pinyin4Net/repository/archive/master.zip)
+```shell
+git clone https://github.com/hyjiacan/Pinyin4Net.git
+```
+
+[发行版](https://gitee.com/hyjiacan/Pinyin4Net/attach_files)
+
+## 编译
+
+开发环境已切换为 [Visual Studio Code](https://code.visualstudio.com/)
+
+编译**DEBUG**版本
+
+```shell
+dotnet build --configuration Debug
+# 或
+dotnet build
+```
+> 注：`--configuration Debug` 为默认配置
+
+编译为**RELEASE**版本
+```shell
+dotnet build --configuration Release
+```
+
+若要编译指定的版本，使用以下参数：
+
+```shell
+dotnet build -f net40
+```
+
+当前配置可以使用的版本如下：
+
+- net40
+- net45
+- NETCOREAPP1.0
+- NETCOREAPP1.1
+- NETCOREAPP2.0
+- netstandard1.6
+- netstandard2.0
+
+> 若要编译成其它的目标版本，需要自行修改*hyjiacan.py4n.csptoj*里面的`TargetFrameworks`节点，
+> 版本名称见[How to target the .NET Framework](https://docs.microsoft.com/en-us/dotnet/core/tutorials/libraries#how-to-target-the-net-framework)
+
 ## 接口
 
 > 提供的所有接口，均为静态接口。

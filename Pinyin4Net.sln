@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTestProject\UnitTestProject.csproj", "{EB2B5623-6C73-4BFC-9ED6-6FA3B226E946}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pinyin4NetWebDemo", "Pinyin4NetWebDemo\Pinyin4NetWebDemo.csproj", "{E828CD27-C7D1-4487-89E0-A2D1DA016B18}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDemo", "WebDemo\WebDemo.csproj", "{E828CD27-C7D1-4487-89E0-A2D1DA016B18}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hyjiacan.py4n", "hyjiacan.py4n\hyjiacan.py4n.csproj", "{A97825FF-42D0-4BF3-8EC6-071E99FCAD63}"
 EndProject
