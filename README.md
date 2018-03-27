@@ -1,4 +1,7 @@
 # Pinyin4NET
+
+<a href="https://gitee.com/hyjiacan/Pinyin4Net"><img src="https://www.travis-ci.org/hyjiacan/Pinyin4NET.svg?branch=master"></a>
+
 .net环境下使用的拼音-汉字互转库。
 
 所有的目标版本都在这一个分支上，现支持以下目标版本:
