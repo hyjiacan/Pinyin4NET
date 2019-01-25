@@ -17,19 +17,40 @@
 
 
 
-## 获取源码与发行版
+## 源码与发行版
 
 GitHub [zip](https://github.com/hyjiacan/Pinyin4Net/archive/master.zip)
-```shell
+```bash
 git clone https://gitee.com/hyjiacan/Pinyin4Net.git
 ```
 
 码云 [zip](https://gitee.com/hyjiacan/Pinyin4Net/repository/archive/master.zip)
-```shell
+```bash
 git clone https://github.com/hyjiacan/Pinyin4Net.git
 ```
 
 [发行版](https://gitee.com/hyjiacan/Pinyin4Net/attach_files)
+
+
+## nuget安装
+
+Package Manager
+
+```bash
+Install-Package hyjiacan.py4n
+```
+
+.NET CLI
+
+```bash
+dotnet add package hyjiacan.py4n
+```
+
+Packet CLI
+
+```bash
+paket add hyjiacan.py4n
+```
 
 ## 编译
 
@@ -38,13 +59,13 @@ git clone https://github.com/hyjiacan/Pinyin4Net.git
 执行项目目录下的*build.bat*/*build.sh*可以直接开始生成所有支持的目标的**Release**版本，
 若需要生成某个版本，请参考以下命令。
 
-```shell
+```bash
 cd hyjiacan.py4n
 ```
 
 编译**DEBUG**版本
 
-```shell
+```bash
 dotnet build --configuration Debug
 # 或
 dotnet build
@@ -52,13 +73,13 @@ dotnet build
 > 注：`--configuration Debug` 为默认配置
 
 编译为**RELEASE**版本
-```shell
+```bash
 dotnet build --configuration Release
 ```
 
 若要编译指定的版本，使用以下参数：
 
-```shell
+```bash
 dotnet build -f net40
 ```
 
@@ -79,17 +100,17 @@ dotnet build -f net40
 
 > 单元测试需要安装对应的.net版本
 
-```shell
+```bash
 cd UnitTestProject
 ```
 
 运行所有版本的测试
-```shell
+```bash
 dotnet test
 ```
 
 运行指定版本的测试
-```shell
+```bash
 dotnet test -f net40
 ```
 
@@ -99,7 +120,7 @@ dotnet test -f net40
 
 > Demo网站基于**.NETCORE2.0**
 
-```shell
+```bash
 cd WebDemo
 dotnet build
 dotnet run
