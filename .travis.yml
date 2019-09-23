@@ -1,5 +1,5 @@
 language: csharp
 solution: Pinyin4Net.sln
-dotnet: 3.0.0-rc1
+dotnet: 2.2.402
 install: dotnet restore
 script: dotnet build -f NETCOREAPP2.0
