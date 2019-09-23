@@ -1,5 +1,4 @@
-﻿using hyjiacan.py4n.format;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 // ReSharper disable MemberCanBeMadeStatic.Local
 
 namespace hyjiacan.py4n.test
@@ -71,26 +70,29 @@ namespace hyjiacan.py4n.test
         }
 
         /// <summary>
-        /// 测试输出格式
+        /// 测试输出格式 (默认格式)
         /// </summary>
         [TestMethod]
         public void FormatTest1()
         {
-            var format = new PinyinOutputFormat(ToneFormat.WITH_TONE_MARK, CaseFormat.LOWERCASE, VCharFormat.WITH_U_UNICODE);
-            PinyinFormatAssert("李", "lĭ", format);
-            PinyinFormatAssert("单于", "chán yú", format);
-            PinyinFormatAssert("乐", "yuè", format);
-            PinyinFormatAssert("厍", "shè", format);
-            PinyinFormatAssert("欧", "ōu", format);
+            var format = PinyinFormat.None;
+
+            PinyinFormatAssert("李", "li3", format);
+            PinyinFormatAssert("单于", "chan2 yu2", format);
+            PinyinFormatAssert("乐", "yue4", format);
+            PinyinFormatAssert("厍", "she4", format);
+            PinyinFormatAssert("欧", "ou1", format);
         }
 
         /// <summary>
-        /// 测试输出格式2
+        /// 测试输出格式2 (全小写)
         /// </summary>
         [TestMethod]
         public void FormatTest2()
         {
-            var format = new PinyinOutputFormat();
+            var format = PinyinFormat.WITH_TONE_MARK |
+                PinyinFormat.LOWERCASE |
+                PinyinFormat.WITH_U_UNICODE;
             PinyinFormatAssert("李", "lĭ", format);
             PinyinFormatAssert("单于", "chán yú", format);
             PinyinFormatAssert("乐", "yuè", format);
@@ -99,12 +101,14 @@ namespace hyjiacan.py4n.test
         }
 
         /// <summary>
-        /// 测试输出格式
+        /// 测试输出格式 (首拼音大写)
         /// </summary>
         [TestMethod]
         public void FormatTest3()
         {
-            var format = new PinyinOutputFormat(null, CaseFormat.CAPITALIZE_FIRST_LETTER.ToString(), VCharFormat.WITH_U_UNICODE.ToString());
+            var format = PinyinFormat.WITH_TONE_MARK |
+                PinyinFormat.CAPITALIZE_FIRST_LETTER |
+                PinyinFormat.WITH_U_UNICODE;
             PinyinFormatAssert("李", "Lĭ", format);
             PinyinFormatAssert("单于", "Chán Yú", format);
             PinyinFormatAssert("乐", "Yuè", format);
@@ -112,12 +116,14 @@ namespace hyjiacan.py4n.test
             PinyinFormatAssert("欧", "Ōu", format);
         }
         /// <summary>
-        /// 测试输出格式
+        /// 测试输出格式 (全大写)
         /// </summary>
         [TestMethod]
         public void FormatTest4()
         {
-            var format = new PinyinOutputFormat(null, CaseFormat.UPPERCASE.ToString(), VCharFormat.WITH_U_UNICODE.ToString());
+            var format = PinyinFormat.WITH_TONE_MARK | 
+                PinyinFormat.UPPERCASE | 
+                PinyinFormat.WITH_U_UNICODE;
             PinyinFormatAssert("李", "LĬ", format);
             PinyinFormatAssert("单于", "CHÁN YÚ", format);
             PinyinFormatAssert("乐", "YUÈ", format);
@@ -192,9 +198,9 @@ namespace hyjiacan.py4n.test
         /// <param name="hanzi"></param>
         /// <param name="expected"></param>
         /// <param name="format"></param>
-        private void PinyinFormatAssert(string hanzi, string expected, PinyinOutputFormat format)
+        private void PinyinFormatAssert(string hanzi, string expected, PinyinFormat format)
         {
-            var fmted = Pinyin4Name.GetPinyinWithFormat(hanzi, format);
+            var fmted = Pinyin4Name.GetPinyin(hanzi, format);
 
             Assert.AreEqual(expected, fmted);
         }

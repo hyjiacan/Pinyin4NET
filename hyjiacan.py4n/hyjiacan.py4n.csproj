@@ -1,18 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>NETSTANDARD1.6;NETSTANDARD2.0;NETCOREAPP1.0;NETCOREAPP1.1;NETCOREAPP2.0;NET40;NET45;</TargetFrameworks>
+    <TargetFrameworks>NETSTANDARD1.6;NETSTANDARD2.0;NETCOREAPP1.0;NETCOREAPP1.1;NETCOREAPP2.0;NETCOREAPP2.2;NETCOREAPP3.0;NET40;NET45;</TargetFrameworks>
     <Product>Pinyin.NET</Product>
     <PackageId>hyjiacan.py4n</PackageId>
     <Description>.net环境下使用的拼音(包含姓名拼音)-汉字互转库。</Description>
     <Authors>hyjiacan</Authors>
     <Company>hyjiacan</Company>
-    <Copyright>Copyright ©hyjiacan  2018</Copyright>
-    <Version>3.1.0</Version>
-    <FileVersion>3.1.0</FileVersion>
+    <Copyright>Copyright ©hyjiacan 2018</Copyright>
+    <Version>4.0.0</Version>
+    <FileVersion>4.0.0</FileVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageLicenseUrl>https://mit-license.org/</PackageLicenseUrl>
+    <PackageLicense>https://mit-license.org/</PackageLicense>
     <PackageProjectUrl>https://gitee.com/hyjiacan/Pinyin4Net.git</PackageProjectUrl>
     <PackageTags>pinyin</PackageTags>
     <PackageIconUrl>https://www.gravatar.com/avatar/ec64859e4788600d884b9ca223c5e4a1</PackageIconUrl>

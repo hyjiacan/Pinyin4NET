@@ -1,5 +1,4 @@
-﻿using hyjiacan.py4n.format;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 // ReSharper disable MemberCanBeMadeStatic.Local
 
 namespace hyjiacan.py4n.test
@@ -11,7 +10,7 @@ namespace hyjiacan.py4n.test
         [TestInitialize]
         public void Init()
         {
-           
+
         }
 
         /// <summary>
@@ -37,7 +36,7 @@ namespace hyjiacan.py4n.test
         [TestMethod]
         public void FirstOfMultiPinyin()
         {
-            var pinyin = Pinyin4Net.GetUniqueOrFirstPinyin('传');
+            var pinyin = Pinyin4Net.GetFirstPinyin('传');
             Assert.AreEqual("chuan2", pinyin);
         }
 
@@ -45,31 +44,12 @@ namespace hyjiacan.py4n.test
         /// 测试输出格式
         /// </summary>
         [TestMethod]
-        public void FormatTest1()
-        {
-            var format = new PinyinOutputFormat(ToneFormat.WITHOUT_TONE, CaseFormat.LOWERCASE, VCharFormat.WITH_U_UNICODE);
-            Assert.AreEqual(ToneFormat.WITHOUT_TONE, format.GetToneFormat);
-            Assert.AreEqual(CaseFormat.LOWERCASE, format.GetCaseFormat);
-            Assert.AreEqual(VCharFormat.WITH_U_UNICODE, format.GetVCharFormat);
-        }
-        /// <summary>
-        /// 测试输出格式
-        /// </summary>
-        [TestMethod]
-        public void FormatTest2()
-        {
-            var format = new PinyinOutputFormat("WITHOUT_TONE","LOWERCASE", "WITH_U_UNICODE");
-            Assert.AreEqual(ToneFormat.WITHOUT_TONE, format.GetToneFormat);
-            Assert.AreEqual(CaseFormat.LOWERCASE, format.GetCaseFormat);
-            Assert.AreEqual(VCharFormat.WITH_U_UNICODE, format.GetVCharFormat);
-        }
-        /// <summary>
-        /// 测试输出格式
-        /// </summary>
-        [TestMethod]
         public void FormatTest3()
         {
-            var format = new PinyinOutputFormat(ToneFormat.WITH_TONE_MARK, CaseFormat.LOWERCASE, VCharFormat.WITH_U_UNICODE);
+            var format = PinyinFormat.WITH_TONE_MARK |
+                PinyinFormat.LOWERCASE |
+                PinyinFormat.WITH_U_UNICODE;
+
             PinyinFormatAssert('啊', "a", format);
             PinyinFormatAssert('俄', "é", format);
             PinyinFormatAssert('李', "lĭ", format);
@@ -88,7 +68,9 @@ namespace hyjiacan.py4n.test
         public void TestString1()
         {
             const string s = "Javascript 爱好者 传说";
-            var format = new PinyinOutputFormat();
+            var format = PinyinFormat.WITH_TONE_MARK |
+                PinyinFormat.LOWERCASE |
+                PinyinFormat.WITH_U_UNICODE;
             const string expected = "Javascript ài hăo zhĕ  chuán shuō";
             var pinyin = Pinyin4Net.GetPinyin(s, format);
             Assert.AreEqual(expected, pinyin);
@@ -101,7 +83,9 @@ namespace hyjiacan.py4n.test
         public void TestString2()
         {
             const string s = "Javascript 爱好者 传说";
-            var format = new PinyinOutputFormat(null, CaseFormat.CAPITALIZE_FIRST_LETTER.ToString(), VCharFormat.WITH_U_UNICODE.ToString());
+            var format = PinyinFormat.WITH_TONE_MARK |
+                PinyinFormat.CAPITALIZE_FIRST_LETTER |
+                PinyinFormat.WITH_U_UNICODE;
             const string expected = "Javascript Ài Hăo Zhĕ  Chuán Shuō";
             var pinyin = Pinyin4Net.GetPinyin(s, format);
             Assert.AreEqual(expected, pinyin);
@@ -113,7 +97,9 @@ namespace hyjiacan.py4n.test
         public void TestString3()
         {
             const string s = "Javascript 爱好者 传说";
-            var format = new PinyinOutputFormat(null, CaseFormat.UPPERCASE.ToString(), VCharFormat.WITH_U_UNICODE.ToString());
+            var format = PinyinFormat.WITH_TONE_MARK |
+                PinyinFormat.UPPERCASE |
+                PinyinFormat.WITH_U_UNICODE;
             const string expected = "Javascript ÀI HĂO ZHĔ  CHUÁN SHUŌ";
             var pinyin = Pinyin4Net.GetPinyin(s, format);
             Assert.AreEqual(expected, pinyin);
@@ -125,7 +111,9 @@ namespace hyjiacan.py4n.test
         public void TestString4()
         {
             const string s = "Javascript 爱好者 传说";
-            var format = new PinyinOutputFormat(null, CaseFormat.UPPERCASE.ToString(), VCharFormat.WITH_U_UNICODE.ToString());
+            var format = PinyinFormat.WITH_TONE_MARK |
+                PinyinFormat.UPPERCASE |
+                PinyinFormat.WITH_U_UNICODE;
             const string expected = "JAVASCRIPT ÀI HĂO ZHĔ  CHUÁN SHUŌ";
             var pinyin = Pinyin4Net.GetPinyin(s, format, true, false, false);
             Assert.AreEqual(expected, pinyin);
@@ -137,7 +125,9 @@ namespace hyjiacan.py4n.test
         public void TestString5()
         {
             const string s = "JavaScript 爱好者 传说";
-            var format = new PinyinOutputFormat(null, CaseFormat.LOWERCASE.ToString(), VCharFormat.WITH_U_UNICODE.ToString());
+            var format = PinyinFormat.WITH_TONE_MARK |
+                PinyinFormat.LOWERCASE |
+                PinyinFormat.WITH_U_UNICODE;
             const string expected = "JavaScript ài hăo zhĕ  chuán shuō";
             var pinyin = Pinyin4Net.GetPinyin(s, format);
             Assert.AreEqual(expected, pinyin);
@@ -149,7 +139,9 @@ namespace hyjiacan.py4n.test
         public void TestString6()
         {
             const string s = "JavaScript 爱好者 传说";
-            var format = new PinyinOutputFormat(null, CaseFormat.LOWERCASE.ToString(), VCharFormat.WITH_U_UNICODE.ToString());
+            var format = PinyinFormat.WITH_TONE_MARK |
+                PinyinFormat.LOWERCASE |
+                PinyinFormat.WITH_U_UNICODE;
             const string expected = "javascript ài hăo zhĕ  chuán shuō";
             var pinyin = Pinyin4Net.GetPinyin(s, format, true, false, false);
             Assert.AreEqual(expected, pinyin);
@@ -163,7 +155,7 @@ namespace hyjiacan.py4n.test
         {
             const string s = "JavaScript 爱好者 传说";
             const string expected = "JavaScript [a] [h] [z]  [c] [s]";
-            var pinyin = Pinyin4Net.GetPinyin(s, null, false, true, false);
+            var pinyin = Pinyin4Net.GetPinyin(s, PinyinFormat.None, false, true, false);
             Assert.AreEqual(expected, pinyin);
         }
 
@@ -175,7 +167,7 @@ namespace hyjiacan.py4n.test
         {
             const string s = "JavaScript 爱好者 传说";
             const string expected = "JavaScript [a] [h] [z]  [c,z] [s,y]";
-            var pinyin = Pinyin4Net.GetPinyin(s, null, false, true, true);
+            var pinyin = Pinyin4Net.GetPinyin(s, PinyinFormat.None, false, true, true);
             Assert.AreEqual(expected, pinyin);
         }
 
@@ -196,10 +188,10 @@ namespace hyjiacan.py4n.test
         /// <param name="hanzi"></param>
         /// <param name="expected"></param>
         /// <param name="format"></param>
-        private void PinyinFormatAssert(char hanzi, string expected, PinyinOutputFormat format)
+        private void PinyinFormatAssert(char hanzi, string expected, PinyinFormat format)
         {
-            var fmted = Pinyin4Net.GetUniqueOrFirstPinyinWithFormat(hanzi, format);
-            
+            var fmted = Pinyin4Net.GetFirstPinyin(hanzi, format);
+
             Assert.AreEqual(expected, fmted);
         }
 

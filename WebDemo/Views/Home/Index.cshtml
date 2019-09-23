@@ -2,7 +2,7 @@
     ViewData["Title"] = "Pinyin4Net 示例页面";
 }
 
-<div style="width:680px;margin: 0 auto;">
+<div style="width:800px;margin: 0 auto;">
     <h1>Pinyin4Net Web Demo</h1>
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -10,9 +10,9 @@
         </div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-6">
                     <div class="form-group">
-                        <span class="input-group-addon">大小写类型</span>
+                        <span class="format-label">大小写类型</span>
                         <select class="form-control" id="caseType">
                             <option value="UPPERCASE">大写</option>
                             <option value="LOWERCASE" selected="selected">小写</option>
@@ -20,9 +20,9 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-6">
                     <div class="form-group">
-                        <span class="input-group-addon">声调</span>
+                        <span class="format-label">声调</span>
                         <select class="form-control" id="toneType">
                             <option value="WITH_TONE_MARK" selected="selected">声调标志</option>
                             <option value="WITH_TONE_NUMBER">声调数值</option>
@@ -30,9 +30,11 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-3">
+            </div>                
+            <div class="row">
+                <div class="col-md-6">
                     <div class="form-group">
-                        <span class="input-group-addon">字符v输出格式</span>
+                        <span class="format-label">字符v输出格式</span>
                         <select class="form-control" id="vType">
                             <option value="WITH_U_UNICODE" selected="selected">ü</option>
                             <option value="WITH_V">v</option>
@@ -40,9 +42,9 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-6">
                     <div class="form-group">
-                        <span class="input-group-addon">多音字取</span>
+                        <span class="format-label">多音字取</span>
                         <select class="form-control" id="multi">
                             <option value="FIRST" selected="selected">第一个</option>
                             <option value="ALL">全部</option>
@@ -65,11 +67,14 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             拼音查汉字
+            <label style="margin-left: 20px;">
+                <input type="checkbox" id="matchAll" checked="checked" style="vertical-align: -2px;"> 完整匹配
+            </label>
         </div>
         <div class="panel-body">
             <div class="input-group">
                 <span class="input-group-addon">拼音</span>
-                <input type="text" class="form-control" value="l" data-cmd="1" />
+                <input type="text" class="form-control" value="lo" data-cmd="1" />
                 <span class="input-group-addon">按回车触发</span>
             </div>
             <br />

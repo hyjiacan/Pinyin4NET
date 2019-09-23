@@ -16,6 +16,11 @@ namespace WebDemo.Models
         /// </summary>
         public string Cmd { get; set; }
 
+        /// <summaray>
+        /// 使用拼音查汉字时，是否完整匹配
+        /// </summary>
+        public bool MatchAll { get; set; }
+
         /// <summary>
         /// 用于控制多音字的返回， 有两种取值 first：取第1个音，all：取所有音 默认为取第1个音
         /// </summary>

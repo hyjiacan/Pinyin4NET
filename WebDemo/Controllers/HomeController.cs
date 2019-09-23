@@ -1,5 +1,4 @@
 ﻿using hyjiacan.py4n;
-using hyjiacan.py4n.format;
 using Microsoft.AspNetCore.Mvc;
 using WebDemo.Models;
 using System;
@@ -30,7 +29,7 @@ namespace WebDemo.Controllers
                     return Hanzi2Pinyin(request);
                 }
 
-                string[] hanzi = Pinyin4Net.GetHanzi(request.Key, true);
+                string[] hanzi = Pinyin4Net.GetHanzi(request.Key, request.MatchAll);
                 return string.Join(",", hanzi);
             }
 
@@ -50,8 +49,9 @@ namespace WebDemo.Controllers
             var result = new StringBuilder();
 
             // 解析从客户端来的输出格式设置
-            PinyinOutputFormat format = new PinyinOutputFormat(request.ToneType,
-                request.CaseType, request.VType);
+            PinyinFormat format = PinyinUtil.ParseFormat(request.ToneType) |
+                PinyinUtil.ParseFormat(request.CaseType) |
+                PinyinUtil.ParseFormat(request.VType);
 
             foreach (char ch in request.Key)
             {
@@ -67,11 +67,11 @@ namespace WebDemo.Controllers
                 if (request.Multi.Equals("first", StringComparison.OrdinalIgnoreCase))
                 {
                     // 拼音间追加一个空格，这里如果是多间字，拼音可能不准确
-                    result.AppendFormat("{0} ", Pinyin4Net.GetUniqueOrFirstPinyinWithFormat(ch, format));
+                    result.AppendFormat("{0} ", Pinyin4Net.GetFirstPinyin(ch, format));
                     continue;
                 }
 
-                string[] py = Pinyin4Net.GetPinyinWithFormat(ch, format);
+                string[] py = Pinyin4Net.GetPinyin(ch, format);
                 result.AppendFormat("({0}) ", string.Join(",", py));
             }
 

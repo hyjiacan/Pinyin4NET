@@ -1,7 +1,7 @@
 ﻿using hyjiacan.py4n.data;
 using hyjiacan.py4n.exception;
 using System.Linq;
-using hyjiacan.py4n.format;
+using hyjiacan.py4n;
 
 namespace hyjiacan.py4n
 {
@@ -15,16 +15,23 @@ namespace hyjiacan.py4n
         /// 获取姓的拼音，如果是复姓则由空格分隔
         /// </summary>
         /// <param name="firstName">要查询拼音的姓</param>
+        /// <param name="format">输出拼音格式化参数</param>
         /// <returns>返回姓的拼音，若未找到姓，则返回null</returns>
         /// <exception cref="UnsupportedUnicodeException">当要获取拼音的字符不是汉字时抛出此异常</exception>
-        public static string GetPinyin(string firstName)
+        public static string GetPinyin(string firstName, PinyinFormat format = PinyinFormat.None)
         {
-            if (firstName.All(PinyinUtil.IsHanzi))
+            if (!firstName.All(PinyinUtil.IsHanzi))
             {
-                return NameDB.Instance.GetPinyin(firstName);
+                // 不是汉字
+                throw new UnsupportedUnicodeException("不支持的字符: 请输入汉字字符");
             }
-            // 不是汉字
-            throw new UnsupportedUnicodeException("不支持的字符: 请输入汉字字符");
+            var pinyin = NameDB.Instance.GetPinyin(firstName);
+            if (format == PinyinFormat.None)
+            {
+                return pinyin;
+            }
+
+            return string.Join(" ", pinyin.Split(' ').Select(item => PinyinUtil.Format(item, format)));
         }
 
         /// <summary>
@@ -41,20 +48,6 @@ namespace hyjiacan.py4n
                 return null;
             }
             return string.Join(" ", pinyin.Split(' ').Select(py => py[0]));
-        }
-
-        /// <summary>
-        /// 获取格式化后的拼音
-        /// </summary>
-        /// <param name="firstName">要查询拼音的姓</param>
-        /// <param name="format">输出拼音格式化参数</param>
-        /// <see cref="PinyinOutputFormat"/>
-        /// <seealso cref="PinyinFormatter"/>
-        /// <returns>返回格式化后的拼音，若未找到姓，则返回null</returns>
-        /// <exception cref="UnsupportedUnicodeException">当要获取拼音的字符不是汉字时抛出此异常</exception>
-        public static string GetPinyinWithFormat(string firstName, PinyinOutputFormat format)
-        {
-            return string.Join(" ", GetPinyin(firstName).Split(' ').Select(item => PinyinFormatter.Format(item, format)));
         }
         #endregion
 

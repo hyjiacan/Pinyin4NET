@@ -87,24 +87,19 @@ namespace hyjiacan.py4n.data
             if (matchAll)
             {
                 // 查询到匹配的拼音的unicode编码
-                hanzi.AddRange(from code in map.Keys
-                               where map[code].Any(item => reg.Replace(item, "").Equals(pinyin))
-                               select Convert.ToChar(Convert.ToInt32(code, 16)).ToString());
-            }
-            // 匹配开头部分
-            else
-            {
-                // 查询到匹配的拼音的unicode编码
-                hanzi.AddRange(from code in map.Keys
-                               where map[code].Any(item => item.StartsWith(pinyin))
-                               select Convert.ToChar(Convert.ToInt32(code, 16)).ToString());
+                return map.Where(item => item.Value.Any(py => reg.Replace(py, "").Equals(pinyin)))
+                    .Select(item => Convert.ToChar(Convert.ToInt32(item.Key, 16)).ToString()).ToArray();
             }
 
-            return hanzi.ToArray();
+            // 匹配开头部分
+            // 查询到匹配的拼音的unicode编码
+            return map.Where(item => item.Value.Any(py => py.StartsWith(pinyin)))
+                .Select(item => Convert.ToChar(Convert.ToInt32(item.Key, 16)).ToString()).ToArray();
+
         }
-         /**
-         *拼音数据
-         */
+        /**
+        *拼音数据
+        */
         private const string DATA = @"3007 (ling2)
 4E00 (yi1)
 4E01 (ding1,zheng1)

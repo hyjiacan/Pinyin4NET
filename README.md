@@ -2,37 +2,41 @@
 
 <a href="https://gitee.com/hyjiacan/Pinyin4Net"><img src="https://www.travis-ci.org/hyjiacan/Pinyin4NET.svg?branch=master"></a>
 
-.net环境下使用的拼音-汉字互转库。
+.net 环境下使用的拼音-汉字互转库。
 
 所有的目标版本都在这一个分支上，现支持以下目标版本:
+
 - net4.0
 - net4.5
+- net4.6
+- net4.7
 - netcore1.0
 - netcore1.1
 - netcore2.0
 - netstandard1.6
 - netstandard2.0
+- netstandard2.2
+- netstandard3.0
 
-.NET版本对应关系参见 [How to target the .NET Standard](https://docs.microsoft.com/en-us/dotnet/core/tutorials/libraries#how-to-target-the-net-standard)
-
-
+.NET 版本对应关系参见 [How to target the .NET Standard](https://docs.microsoft.com/en-us/dotnet/core/tutorials/libraries#how-to-target-the-net-standard)
 
 ## 源码与发行版
 
 GitHub [zip](https://github.com/hyjiacan/Pinyin4Net/archive/master.zip)
+
 ```bash
 git clone https://gitee.com/hyjiacan/Pinyin4Net.git
 ```
 
 码云 [zip](https://gitee.com/hyjiacan/Pinyin4Net/repository/archive/master.zip)
+
 ```bash
 git clone https://github.com/hyjiacan/Pinyin4Net.git
 ```
 
 [发行版](https://gitee.com/hyjiacan/Pinyin4Net/attach_files)
 
-
-## nuget安装
+## nuget 安装
 
 Package Manager
 
@@ -70,9 +74,11 @@ dotnet build --configuration Debug
 # 或
 dotnet build
 ```
+
 > 注：`--configuration Debug` 为默认配置
 
 编译为**RELEASE**版本
+
 ```bash
 dotnet build --configuration Release
 ```
@@ -98,27 +104,29 @@ dotnet build -f net40
 
 ## 单元测试
 
-> 单元测试需要安装对应的.net版本
+> 单元测试需要安装对应的.net 版本
 
 ```bash
 cd UnitTestProject
 ```
 
 运行所有版本的测试
+
 ```bash
 dotnet test
 ```
 
 运行指定版本的测试
+
 ```bash
-dotnet test -f net40
+dotnet test -f net45
 ```
 
 > 注意：.net4.0 或以下版本不支持`MsTest`单元测试
 
 ## WebDemo
 
-> Demo网站基于**.NETCORE2.0**
+> Demo 网站基于**.NETCORE2.0**
 
 ```bash
 cd WebDemo
@@ -141,39 +149,29 @@ dotnet run
 /// 获取汉字的拼音数组
 /// </summary>
 /// <param name="hanzi">要查询拼音的汉字字符</param>
+/// <param name="format">设置输出拼音的格式</param>
 /// <returns>汉字的拼音数组，若未找到汉字拼音，则返回空数组</returns>
 /// <exception cref="UnsupportedUnicodeException">当要获取拼音的字符不是汉字时抛出此异常</exception>
-public static string[] GetPinyin(char hanzi)
-
-/// <summary>
-/// 获取唯一拼音(单音字)或者第一个拼音(多音字)
-/// </summary>
-/// <param name="hanzi">要查询拼音的汉字字符</param>
-/// <returns>返回唯一拼音(单音字)或者第一个拼音(多音字)</returns>
-/// <exception cref="UnsupportedUnicodeException">当要获取拼音的字符不是汉字时抛出此异常</exception>
-public static string GetUniqueOrFirstPinyin(char hanzi)
-
-/// <summary>
-/// 获取格式化后的拼音
-/// </summary>
-/// <param name="hanzi">要查询拼音的汉字字符</param>
-/// <param name="format">拼音输出格式化参数</param>
-/// <see cref="PinyinOutputFormat"/>
-/// <seealso cref="PinyinFormatter"/>
-/// <returns>返回经过格式化的拼音</returns>
-/// <exception cref="UnsupportedUnicodeException">当要获取拼音的字符不是汉字时抛出此异常</exception>
-public static string[] GetPinyinWithFormat(char hanzi, PinyinOutputFormat format)
+public static string[] GetPinyin(char hanzi, PinyinFormat format = PinyinFormat.None)
 
 /// <summary>
 /// 获取格式化后的唯一拼音(单音字)或者第一个拼音(多音字)
 /// </summary>
 /// <param name="hanzi">要查询拼音的汉字字符</param>
 /// <param name="format">拼音输出格式化参数</param>
-/// <see cref="PinyinOutputFormat"/>
-/// <seealso cref="PinyinFormatter"/>
+/// <see cref="PinyinFormat"/>
+/// <seealso cref="PinyinUtil"/>
 /// <returns>格式化后的唯一拼音(单音字)或者第一个拼音(多音字)</returns>
 /// <exception cref="UnsupportedUnicodeException">当要获取拼音的字符不是汉字时抛出此异常</exception>
-public static string GetUniqueOrFirstPinyinWithFormat(char hanzi, PinyinOutputFormat format)
+public static string GetFirstPinyin(char hanzi, PinyinFormat format = PinyinFormat.None)
+{
+    var pinyin = GetPinyin(hanzi)[0];
+    if (format == PinyinFormat.None)
+    {
+        return pinyin;
+    }
+    return PinyinUtil.Format(pinyin, format);
+}
 
 /// <summary>
 /// 获取一个字符串内所有汉字的拼音（多音字取第一个读音，带格式）
@@ -184,14 +182,14 @@ public static string GetUniqueOrFirstPinyinWithFormat(char hanzi, PinyinOutputFo
 /// <param name="firstLetterOnly">是否只取拼音首字母，为true时，format无效</param>
 /// <param name="multiFirstLetter">firstLetterOnly为true时有效，多音字的多个读音首字母是否全取，如果多音字拼音首字母相同，只保留一个</param>
 /// <returns>firstLetterOnly为true时，只取拼音首字母格式为[L]，后面追加空格；multiFirstLetter为true时，多音字的多个拼音首字母格式为[L, H]，后面追加空格</returns>
-public static string GetPinyin(string text, PinyinOutputFormat format, bool caseSpread, bool firstLetterOnly, bool multiFirstLetter)
+public static string GetPinyin(string text, PinyinFormat format, bool caseSpread, bool firstLetterOnly, bool multiFirstLetter)
 
 /// <summary>
 /// 获取一个字符串内所有汉字的拼音（多音字取第一个读音，带格式）
 /// </summary>
 /// <param name="text">要获取拼音的汉字字符串</param>
 /// <param name="format">拼音输出格式化参数</param>
-/// <param name="caseSpread">是否将前面的格式中的大小写扩展到其它非拼音字符，默认为false。firstLetterOnly为false时有效 </param>
+/// <param name="caseSpread">是否将前面的格式中的大小写扩展到其它非拼音字符，默认为false。</param>
 /// <param name="pinyinHandler">
 /// 拼音处理器，在获取到拼音后通过这个来处理，
 /// 如果传null，则默认取第一个拼音（多音字），
@@ -201,8 +199,7 @@ public static string GetPinyin(string text, PinyinOutputFormat format, bool case
 /// 3 string 要转成拼音的字符串
 /// return 拼音字符串，这个返回值将作为这个汉字的拼音放到结果中
 /// </param>
-/// <returns>firstLetterOnly为true时，只取拼音首字母格式为[L]，后面追加空格；multiFirstLetter为true时，多音字的多个拼音首字母格式为[L, H]，后面追加空格</returns>
-public static string GetPinyin(string text, PinyinOutputFormat format, bool caseSpread, Func<string[], char, string, string> pinyinHandler)
+public static string GetPinyin(string text, PinyinFormat format, bool caseSpread, Func<string[], char, string, string> pinyinHandler)
 
 /// <summary>
 /// 获取一个字符串内所有汉字的拼音（多音字取第一个读音，带格式），format中指定的大小写模式不会扩展到非拼音字符
@@ -210,7 +207,7 @@ public static string GetPinyin(string text, PinyinOutputFormat format, bool case
 /// <param name="text">要获取拼音的汉字字符串</param>
 /// <param name="format">拼音输出格式化参数</param>
 /// <returns>格式化后的拼音字符串</returns>
-public static string GetPinyin(string text, PinyinOutputFormat format)
+public static string GetPinyin(string text, PinyinFormat format)
 ```
 
 #### 拼音查汉字
@@ -234,28 +231,18 @@ public static string[] GetHanzi(string pinyin, bool matchAll)
 /// 获取姓的拼音，如果是复姓则由空格分隔
 /// </summary>
 /// <param name="firstName">要查询拼音的姓</param>
+/// <param name="format">输出拼音格式化参数</param>
 /// <returns>返回姓的拼音，若未找到姓，则返回null</returns>
 /// <exception cref="UnsupportedUnicodeException">当要获取拼音的字符不是汉字时抛出此异常</exception>
-public static string GetPinyin(string firstName)
+public static string GetPinyin(string firstName, PinyinFormat format = PinyinFormat.None)
 
-/// <summary>
+ /// <summary>
 /// 获取姓的首字母，如果是复姓则由空格分隔首字母
 /// </summary>
 /// <param name="firstName">要查询拼音的姓</param>
 /// <returns>返回姓的拼音首字母，若未找到姓，则返回null</returns>
 /// <exception cref="UnsupportedUnicodeException">当要获取拼音的字符不是汉字时抛出此异常</exception>
 public static string GetFirstLetter(string firstName)
-
-/// <summary>
-/// 获取格式化后的拼音
-/// </summary>
-/// <param name="firstName">要查询拼音的姓</param>
-/// <param name="format">输出拼音格式化参数</param>
-/// <see cref="PinyinOutputFormat"/>
-/// <seealso cref="PinyinFormatter"/>
-/// <returns>返回格式化后的拼音，若未找到姓，则返回null</returns>
-/// <exception cref="UnsupportedUnicodeException">当要获取拼音的字符不是汉字时抛出此异常</exception>
-public static string GetPinyinWithFormat(string firstName, PinyinOutputFormat format)
 
 /// <summary>
 /// 根据拼音查询匹配的姓
@@ -271,73 +258,59 @@ public static string[] GetHanzi(string pinyin, bool matchAll)
 > 用于对拼音输入进行格式化控制
 
 ```csharp
-/// <summary>
-/// 大小写格式
-/// </summary>
-public enum CaseFormat
+[Flags]
+public enum PinyinFormat
 {
     /// <summary>
-    /// 首字母大写，此选项对 a e o 几个独音无效
+    /// 不指定格式
     /// </summary>
-    CAPITALIZE_FIRST_LETTER,
+    None,
+    /// <summary>
+    /// 首字母大写，此选项对 a e o i u 几个独音无效
+    /// </summary>
+    CAPITALIZE_FIRST_LETTER = 1 << 1,
     /// <summary>
     /// 全小写
     /// </summary>
-    LOWERCASE,
+    LOWERCASE = 1 << 2,
     /// <summary>
     /// 全大写
     /// </summary>
-    UPPERCASE
-}
-
-/// <summary>
-/// 声调格式
-/// </summary>
-public enum ToneFormat
-{
+    UPPERCASE = 1 << 3,
     /// <summary>
-    /// 带声调标志
+    /// 将 ü 输出为 u=
     /// </summary>
-    WITH_TONE_MARK,
-    /// <summary>
-    /// 不带声调
-    /// </summary>
-    WITHOUT_TONE,
-    /// <summary>
-    /// 带声调数字值
-    /// </summary>
-    WITH_TONE_NUMBER
-}
-
-/// <summary>
-/// V(ü)字符格式
-/// </summary>
-public enum VCharFormat
-{
-    /// <summary>
-    /// 将 ü 输出为 u:
-    /// </summary>
-    WITH_U_AND_COLON,
+    WITH_U_AND_COLON = 1 << 4,
     /// <summary>
     /// 将 ü 输出为 v
     /// </summary>
-    WITH_V,
+    WITH_V = 1 << 5,
     /// <summary>
     /// 将 ü 输出为ü
     /// </summary>
-    WITH_U_UNICODE
+    WITH_U_UNICODE = 1 << 6,
+    /// <summary>
+    /// 带声调标志
+    /// </summary>
+    WITH_TONE_MARK = 1 << 7,
+    /// <summary>
+    /// 不带声调
+    /// </summary>
+    WITHOUT_TONE = 1 << 8,
+    /// <summary>
+    /// 带声调数字值
+    /// </summary>
+    WITH_TONE_NUMBER = 1 << 9,
 }
 ```
 
-通过实例化输入格式化类 `PinyinOutputFormat`，
-设置上面的这些枚举，再将其传给获取拼音的函数，如：`GetPinyinWithFormat` 等，
-即可格式化拼音输入。(请看 [示例](#示例))
+通过组合位标识值即可格式化拼音输入。(请看 [示例](#示例))
 
 ## 示例
 
 ```csharp
 // 设置拼音输出格式
-PinyinOutputFormat format = new PinyinOutputFormat(ToneFormat.WITHOUT_TONE, CaseFormat.LOWERCASE, VCharFormat.WITH_U_UNICODE);
+PinyinFormat format = PinyinFormat.WITHOUT_TONE | PinyinFormat.LOWERCASE | PinyinFormat.WITH_U_UNICODE;
 char hanzi = '李';
 // 判断是否是汉字
 if(PinyinUtil.IsHanzi(hanzi)){
@@ -348,9 +321,9 @@ string[] py = Pinyin4Net.GetPinyin(hanzi);
 // 取出指定汉字的所有拼音（经过格式化的）
 string[] py = Pinyin4Net.GetPinyin(hanzi, format);
 // 取指定汉字的唯一或者第一个拼音
-Pinyin4Net.GetUniqueOrFirstPinyin(hanzi);
+Pinyin4Net.GetFirstPinyin(hanzi);
 // 取指定汉字的唯一或者第一个拼音（经过格式化的）
-Pinyin4Net.GetUniqueOrFirstPinyinWithFormat(hanzi, format);
+Pinyin4Net.GetPinyin(hanzi, format);
 // 根据拼音查汉字
 string[] hanzi = Pinyin4Net.GetHanzi('li', true);
 ```
@@ -364,7 +337,7 @@ string py = Pinyin4Name.GetPinyin(firstName);
 // 取出姓的拼音首字母
 string py = Pinyin4Name.GetFirstLetter(firstName);
 // 取出姓的拼音(格式化后)
-string py = Pinyin4Name.GetPinyinWithFormat(firstName, format);
+string py = Pinyin4Name.GetPinyin(firstName, format);
 // 取出匹配拼音的姓
 string[] firstNames = Pinyin4Name.GetHanzi("li", false);
 ```
