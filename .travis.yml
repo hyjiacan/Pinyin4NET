@@ -1,6 +1,8 @@
 language: csharp
 solution: Pinyin4Net.sln
-dotnet: 3.0.100
+dotnet:
+    - 2.1.802
+    - 3.0.100
 script: 
     - dotnet restore
     - dotnet test ./UnitTestProject
