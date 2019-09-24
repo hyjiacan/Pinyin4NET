@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>NETSTANDARD1.6;NETSTANDARD2.0;NETCOREAPP1.0;NETCOREAPP1.1;NETCOREAPP2.0;NETCOREAPP2.2;NETCOREAPP3.0;NET40;NET45;</TargetFrameworks>
+    <TargetFrameworks>NETSTANDARD1.6;NETSTANDARD2.0;NETCOREAPP1.0;NETCOREAPP1.1;NETCOREAPP2.0;NETCOREAPP2.2;NET40;NET45;</TargetFrameworks>
     <Product>Pinyin.NET</Product>
     <PackageId>hyjiacan.py4n</PackageId>
     <Description>.net环境下使用的拼音(包含姓名拼音)-汉字互转库。</Description>
