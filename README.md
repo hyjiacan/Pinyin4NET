@@ -11,10 +11,10 @@
 - net4.6
 - net4.7
 - netcore2.0
+- netcore3.0
 - netstandard1.6
 - netstandard2.0
-- netstandard2.2
-- netstandard3.0
+- netstandard2.1
 
 .NET 版本对应关系参见 [How to target the .NET Standard](https://docs.microsoft.com/en-us/dotnet/core/tutorials/libraries#how-to-target-the-net-standard)
 
@@ -92,8 +92,10 @@ dotnet build -f net40
 - NET40
 - NET45
 - NETCOREAPP2.0
+- NETCOREAPP3.0
 - NETSTANDARD1.6
 - NETSTANDARD2.0
+- NETSTANDARD2.1
 
 > 若要编译成其它的目标版本，需要自行修改*hyjiacan.py4n.csptoj*里面的`TargetFrameworks`节点，
 > 版本名称见[How to target the .NET Framework](https://docs.microsoft.com/en-us/dotnet/core/tutorials/libraries#how-to-target-the-net-framework)
