@@ -10,8 +10,6 @@
 - net4.5
 - net4.6
 - net4.7
-- netcore1.0
-- netcore1.1
 - netcore2.0
 - netstandard1.6
 - netstandard2.0
@@ -93,8 +91,6 @@ dotnet build -f net40
 
 - NET40
 - NET45
-- NETCOREAPP1.0
-- NETCOREAPP1.1
 - NETCOREAPP2.0
 - NETSTANDARD1.6
 - NETSTANDARD2.0
