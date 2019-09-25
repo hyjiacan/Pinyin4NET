@@ -1,6 +1,9 @@
 # Pinyin4NET
 
-<a href="https://gitee.com/hyjiacan/Pinyin4Net"><img src="https://www.travis-ci.org/hyjiacan/Pinyin4NET.svg?branch=master"></a>
+![Travis (.org)](https://img.shields.io/travis/hyjiacan/pinyin4net?style=flat-square)
+![Nuget](https://img.shields.io/nuget/v/hyjiacan.py4n?style=flat-square)
+![Nuget](https://img.shields.io/nuget/dt/hyjiacan.py4n?style=flat-square)
+![GitHub](https://img.shields.io/github/license/hyjiacan/pinyin4net?style=flat-square)
 
 .net 环境下使用的拼音-汉字互转库。
 
