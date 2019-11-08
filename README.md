@@ -1,12 +1,12 @@
 # Pinyin4NET
 
-**此库引用了 [pinyin4j](http://pinyin4j.sourceforge.net/) 的拼音数据库，在此表示感谢 ** :+1: :+1: :+1: 
+.net 环境下使用的拼音-汉字互转库
 
 ![Nuget](https://img.shields.io/nuget/v/hyjiacan.py4n?style=flat-square)
 ![Nuget](https://img.shields.io/nuget/dt/hyjiacan.py4n?style=flat-square)
 ![GitHub](https://img.shields.io/github/license/hyjiacan/pinyin4net?style=flat-square)
 
-.net 环境下使用的拼音-汉字互转库。
+**此库引用了 [pinyin4j](http://pinyin4j.sourceforge.net/) 的拼音数据库，在此表示感谢** :+1: :+1: :+1: 
 
 所有的目标版本都在这一个分支上，现支持以下目标版本:
 
