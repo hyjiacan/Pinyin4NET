@@ -1,6 +1,7 @@
 # Pinyin4NET
 
-![Travis (.org)](https://img.shields.io/travis/hyjiacan/pinyin4net?style=flat-square)
+**此库引用了 [pinyin4j](http://pinyin4j.sourceforge.net/) 的拼音数据库，在此表示感谢 ** :+1: :+1: :+1: 
+
 ![Nuget](https://img.shields.io/nuget/v/hyjiacan.py4n?style=flat-square)
 ![Nuget](https://img.shields.io/nuget/dt/hyjiacan.py4n?style=flat-square)
 ![GitHub](https://img.shields.io/github/license/hyjiacan/pinyin4net?style=flat-square)
