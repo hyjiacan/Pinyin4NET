@@ -27,13 +27,13 @@
 GitHub [zip](https://github.com/hyjiacan/Pinyin4Net/archive/master.zip)
 
 ```bash
-git clone https://gitee.com/hyjiacan/Pinyin4Net.git
+git clone https://github.com/hyjiacan/Pinyin4Net.git
 ```
 
 码云 [zip](https://gitee.com/hyjiacan/Pinyin4Net/repository/archive/master.zip)
 
 ```bash
-git clone https://github.com/hyjiacan/Pinyin4Net.git
+git clone https://gitee.com/hyjiacan/Pinyin4Net.git
 ```
 
 [发行版](https://gitee.com/hyjiacan/Pinyin4Net/attach_files)
@@ -57,6 +57,9 @@ Packet CLI
 ```bash
 paket add hyjiacan.py4n
 ```
+
+> 注：nuget 上还有一个 `Pinyin4Net` 的包，
+> 那是有网友基于此项目的早期版本发布的，并非本人发布。
 
 ## 编译
 
