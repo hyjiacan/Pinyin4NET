@@ -346,3 +346,12 @@ string py = Pinyin4Name.GetPinyin(firstName, format);
 // 取出匹配拼音的姓
 string[] firstNames = Pinyin4Name.GetHanzi("li", false);
 ```
+
+## 捐赠列表
+
+> 按捐赠时间先后从上至下排列
+
+- [king.jin](https://gitee.com/kingking)
+- 袁智远
+
+感谢以上朋友的支持，你们使开源更有信心。
