@@ -29,24 +29,50 @@ namespace hyjiacan.py4n.data
         {
             map = new Dictionary<string, string>();
 
-            loadResource();
+            LoadResource();
+        }
+
+        /// <summary>
+        /// 更新数据字典
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="replace"></param>
+        public void Update(Dictionary<string, string> data, bool replace = false)
+        {
+            foreach (var item in data)
+            {
+                if (!map.ContainsKey(item.Key))
+                {
+                    map.Add(item.Key, item.Value);
+                    continue;
+                }
+                if (!replace)
+                {
+                    continue;
+                }
+                map[item.Key] = item.Value;
+            }
         }
 
         /// <summary>
         /// 加载拼音库资源
         /// </summary>
-        private void loadResource()
+        public void LoadResource()
         {
-            foreach (var buf in DATA.Split('\n').Where(buf => !string.IsNullOrEmpty(buf)))
+            foreach (var row in DATA.Split('\n'))
             {
-                var temp = buf.Split('=');
+                if (string.IsNullOrEmpty(row))
+                {
+                    continue;
+                }
+                var temp = row.Split('=');
                 // 取姓
                 var name = temp[0];
 
                 // 取拼音串 小心有个 \r 的回车符号
                 var pinyin = temp[1].Trim();
 
-                map.Add(name, pinyin.Replace('-', ' '));
+                map.Add(name, pinyin.Replace(",", " "));
             }
         }
         /// <summary>
@@ -65,7 +91,7 @@ namespace hyjiacan.py4n.data
         /// <param name="pinyin">拼音</param>
         /// <param name="matchAll">是否全部匹配，为true时，匹配整个拼音，否则匹配开头字符，此参数用于告知传入的拼音是完整拼音还是仅仅是声母</param>
         /// <returns></returns>
-        public string[] GetHanzi(string pinyin, bool matchAll)
+        public IEnumerable<string> GetHanzi(string pinyin, bool matchAll)
         {
             var reg = new Regex("[0-9]");
             // 完全匹配
@@ -84,7 +110,7 @@ namespace hyjiacan.py4n.data
             }
         }
 
-       private const string DATA = @"艾=ai4
+        private const string DATA = @"艾=ai4
 安=an1
 敖=ao2
 巴=ba1
@@ -109,7 +135,7 @@ namespace hyjiacan.py4n.data
 曹=cao2
 岑=cen2
 柴=chai2
-单于=chan2-yu2
+单于=chan2,yu2
 昌=chang1
 常=chang2
 巢=chao2
@@ -122,17 +148,17 @@ namespace hyjiacan.py4n.data
 充=chong1
 储=chu3
 褚=chu3
-淳于=chun2-yu2
+淳于=chun2,yu2
 从=cong2
 崔=cui1
 戴=dai4
 党=dang3
 邓=deng4
 狄=di2
-第五=di4-wu3
+第五=di4,wu3
 刁=diao1
 丁=ding1
-东方=dong1-fang1
+东方=dong1,fang1
 东=dong1
 董=dong3
 窦=dou4
@@ -165,10 +191,10 @@ namespace hyjiacan.py4n.data
 盖=ge3
 葛=ge3
 耿=geng3
-公孙=gong1-sun1
-公羊=gong1-yang2
-公冶=gong1-ye3
-宗政=gong1-ye3
+公孙=gong1,sun1
+公羊=gong1,yang2
+公冶=gong1,ye3
+宗政=gong1,ye3
 公=gong1
 宫=gong1
 弓=gong1
@@ -190,7 +216,7 @@ namespace hyjiacan.py4n.data
 郝=hao3
 何=he2
 和=he2
-赫连=he4-lian2
+赫连=he4,lian2
 贺=he4
 衡=heng2
 弘=hong2
@@ -206,7 +232,7 @@ namespace hyjiacan.py4n.data
 怀=huai2
 桓=huan2
 宦=huan4
-皇甫=huang2-fu3
+皇甫=huang2,fu3
 黄=huang2
 惠=hui4
 霍=huo4
@@ -263,14 +289,14 @@ namespace hyjiacan.py4n.data
 廖=liao4
 林=lin2
 蔺=lin4
-令狐=ling2-hu2
+令狐=ling2,hu2
 凌=ling2
 刘=liu2
 柳=liu3
 隆=long2
 龙=long2
 娄=lou2
-闾丘=lu2-qiu1
+闾丘=lu2,qiu1
 卢=lu2
 吕=lu3
 鲁=lu3
@@ -296,9 +322,9 @@ namespace hyjiacan.py4n.data
 缪=miao4
 闵=min3
 明=ming2
-万俟=mo4-qi2
+万俟=mo4,qi2
 莫=mo4
-慕容=mu4-rong2
+慕容=mu4,rong2
 慕=mu4
 牧=mu4
 穆=mu4
@@ -311,7 +337,7 @@ namespace hyjiacan.py4n.data
 牛=niu2
 钮=niu3
 农=nong2
-欧阳=ou1-yang2
+欧阳=ou1,yang2
 欧=ou1
 潘=pan1
 庞=pang2
@@ -321,7 +347,7 @@ namespace hyjiacan.py4n.data
 蓬=peng2
 皮=pi2
 平=ping2
-濮阳=pu2-yang2
+濮阳=pu2,yang2
 濮=pu2
 蒲=pu2
 浦=pu3
@@ -357,12 +383,12 @@ namespace hyjiacan.py4n.data
 沙=sha1
 山=shan1
 单=shan4
-上官=shang4-guan1
+上官=shang4,guan1
 尚=shang4
 韶=shao2
 邵=shao4
 厍=she4
-申屠=shen1-tu2
+申屠=shen1,tu2
 申=shen1
 莘=shen1
 沈=shen3
@@ -379,9 +405,9 @@ namespace hyjiacan.py4n.data
 束=shu4
 双=shuang1
 水=shui3
-司空=si1-kong1
-司马=si1-ma3
-司徒=si1-tu2
+司空=si1,kong1
+司马=si1,ma3
+司徒=si1,tu2
 司=si1
 松=song1
 宋=song4
@@ -390,8 +416,8 @@ namespace hyjiacan.py4n.data
 孙=sun1
 索=suo3
 邰=tai2
-太叔=tai4-shu1
-澹台=tan2-tai2
+太叔=tai4,shu1
+澹台=tan2,tai2
 谈=tan2
 谭=tan2
 汤=tang1
@@ -413,7 +439,7 @@ namespace hyjiacan.py4n.data
 蔚=wei4
 魏=wei4
 温=wen1
-闻人=wen2-ren2
+闻人=wen2,ren2
 文=wen2
 闻=wen2
 翁=weng1
@@ -430,9 +456,9 @@ namespace hyjiacan.py4n.data
 习=xi2
 席=xi2
 郤=xi4
-夏侯=xia4-hou2
+夏侯=xia4,hou2
 夏=xia4
-鲜于=xian1-yu2
+鲜于=xian1,yu2
 咸=xian2
 向=xiang4
 相=xiang4
@@ -448,7 +474,7 @@ namespace hyjiacan.py4n.data
 须=xu1
 徐=xu2
 许=xu3
-轩辕=xuan1-yuan2
+轩辕=xuan1,yuan2
 宣=xuan1
 薛=xue1
 荀=xun2
@@ -482,10 +508,10 @@ namespace hyjiacan.py4n.data
 俞=yu2
 虞=yu2
 鱼=yu2
-宇文=yu3-wen2
+宇文=yu3,wen2
 庾=yu3
 禹=yu3
-尉迟=yu4-chi2
+尉迟=yu4,chi2
 喻=yu4
 郁=yu4
 元=yuan2
@@ -503,18 +529,18 @@ namespace hyjiacan.py4n.data
 湛=zhan4
 张=zhang1
 章=zhang1
-长孙=zhang3-sun1
+长孙=zhang3,sun1
 赵=zhao4
 甄=zhen1
 郑=zheng4
 支=zhi1
-钟离=zhong1-li2
-仲孙=zhong1-sun1
+钟离=zhong1,li2
+仲孙=zhong1,sun1
 终=zhong1
 钟=zhong1
 仲=zhong4
 周=zhou1
-诸葛=zhu1-ge3
+诸葛=zhu1,ge3
 朱=zhu1
 诸=zhu1
 竺=zhu2
@@ -525,6 +551,6 @@ namespace hyjiacan.py4n.data
 宗=zong1
 邹=zou1
 祖=zu3
-左=zuo3"; 
+左=zuo3";
     }
 }

@@ -1,7 +1,7 @@
 ﻿using hyjiacan.py4n.data;
 using hyjiacan.py4n.exception;
 using System.Linq;
-using hyjiacan.py4n;
+using System.Collections.Generic;
 
 namespace hyjiacan.py4n
 {
@@ -59,7 +59,16 @@ namespace hyjiacan.py4n
         /// <returns>匹配的姓数组</returns>
         public static string[] GetHanzi(string pinyin, bool matchAll)
         {
-            return NameDB.Instance.GetHanzi(pinyin.ToLower(), matchAll);
+            return NameDB.Instance.GetHanzi(pinyin.ToLower(), matchAll).ToArray();
+        }
+        /// <summary>
+        /// 更新姓名数据库
+        /// </summary>
+        /// <param name="data">复姓的拼音使用一个空格分隔</param>
+        /// <param name="replace">是否替换已经存在的项，默认为 false</param>
+        public static void UpadteMap(Dictionary<string, string> data, bool replace = false)
+        {
+            NameDB.Instance.Update(data, replace);
         }
     }
 }

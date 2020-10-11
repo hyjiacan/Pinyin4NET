@@ -195,5 +195,71 @@ namespace hyjiacan.py4n
             return result;
             // only replace v with ü (umlat) character
         }
+
+        /// <summary>
+        /// 将首字母搞成大写的
+        /// </summary>
+        /// <param name="buffer"></param>
+        /// <returns></returns>
+        public static string CapitalizeFirstLetter(StringBuilder buffer)
+        {
+            // 遇到空格后，将后面一个非空格的字符设置为大写
+            for (var i = 0; i < buffer.Length; i++)
+            {
+                if (buffer[i] != ' ')
+                {
+                    continue;
+                }
+
+                // 当前是最后一个字符
+                if (i == buffer.Length - 1)
+                {
+                    continue;
+                }
+
+                var nextchar = buffer[i + 1];
+
+                // 后一个字符是空格
+                if (nextchar == ' ')
+                {
+                    continue;
+                }
+
+                buffer[i + 1] = char.ToUpper(nextchar);
+            }
+
+            return buffer.ToString();
+        }
+
+        /// <summary>
+        /// 扩展大小写格式
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="caseSpread"></param>
+        /// <param name="firstLetterOnly"></param>
+        /// <param name="pinyin"></param>
+        /// <returns></returns>
+        public static string SpreadCase(PinyinFormat format, bool caseSpread, bool firstLetterOnly, StringBuilder pinyin)
+        {
+            if (firstLetterOnly || !caseSpread)
+            {
+                return pinyin.ToString().Trim();
+            }
+
+            if (format.Contains(CAPITALIZE_FIRST_LETTER))
+            {
+                return CapitalizeFirstLetter(pinyin); ;
+            }
+            if (format.Contains(LOWERCASE))
+            {
+                return pinyin.ToString().Trim().ToLower();
+            }
+            if (format.Contains(UPPERCASE))
+            {
+                return pinyin.ToString().Trim().ToUpper();
+            }
+
+            return pinyin.ToString().Trim();
+        }
     }
 }

@@ -54,6 +54,34 @@ namespace hyjiacan.py4n
 
         #region 获取多个汉字拼音
         /// <summary>
+        /// 获取一个字符串内所有汉字的拼音数组
+        /// </summary>
+        /// <param name="text">要获取拼音的汉字字符串</param>
+        /// <param name="format">拼音输出格式化参数</param>
+        /// <returns>返回拼音列表，每个汉字的拼音会作为一个数组存放（无论是单音字还是多音字）</returns>
+        /// <see cref="PinyinItem"/>
+        public static List<PinyinItem> GetPinyinArray(string text, PinyinFormat format)
+        {
+            var pinyin = new List<PinyinItem>();
+            if (string.IsNullOrEmpty(text))
+            {
+                return pinyin;
+            };
+
+            foreach (var character in text)
+            {
+                var item = new PinyinItem(character);
+                if (item.IsHanzi)
+                {
+                    item.AddRange(GetPinyin(character, format));
+                }
+                pinyin.Add(item);
+            }
+
+            return pinyin;
+        }
+
+        /// <summary>
         /// 获取一个字符串内所有汉字的拼音（多音字取第一个读音，带格式）
         /// </summary>
         /// <param name="text">要获取拼音的汉字字符串</param>
@@ -99,7 +127,7 @@ namespace hyjiacan.py4n
                 pinyin.AppendFormat("[{0}] ", string.Join(",", firstLetterBuf.ToArray()));
             }
 
-            return SpreadCase(format, caseSpread, firstLetterOnly, pinyin);
+            return PinyinUtil.SpreadCase(format, caseSpread, firstLetterOnly, pinyin);
         }
 
         /// <summary>
@@ -138,7 +166,7 @@ namespace hyjiacan.py4n
                     pinyinHandler.Invoke(pinyinTemp, item, text));
             }
 
-            return SpreadCase(format, caseSpread, false, pinyin);
+            return PinyinUtil.SpreadCase(format, caseSpread, false, pinyin);
         }
 
         /// <summary>
@@ -161,73 +189,20 @@ namespace hyjiacan.py4n
         /// <returns></returns>
         public static string[] GetHanzi(string pinyin, bool matchAll)
         {
-            return PinyinDB.Instance.GetHanzi(pinyin.ToLower(), matchAll);
+            return PinyinDB.Instance.GetHanzi(pinyin.ToLower(), matchAll)
+            .Select(item => item.ToString()).ToArray();
         }
 
+        #region 数据库接口
         /// <summary>
-        /// 将首字母搞成大写的
+        /// 更新拼音数据库
         /// </summary>
-        /// <param name="buffer"></param>
-        /// <returns></returns>
-        private static string CapitalizeFirstLetter(StringBuilder buffer)
+        /// <param name="data">多音字作在数组中</param>
+        /// <param name="replace">是否替换已经存在的项，默认为 false</param>
+        public static void UpadteMap(Dictionary<char, string[]> data, bool replace = false)
         {
-            // 遇到空格后，将后面一个非空格的字符设置为大写
-            for (var i = 0; i < buffer.Length; i++)
-            {
-                if (buffer[i] != ' ')
-                {
-                    continue;
-                }
-
-                // 当前是最后一个字符
-                if (i == buffer.Length - 1)
-                {
-                    continue;
-                }
-
-                var nextchar = buffer[i + 1];
-
-                // 后一个字符是空格
-                if (nextchar == ' ')
-                {
-                    continue;
-                }
-
-                buffer[i + 1] = char.ToUpper(nextchar);
-            }
-
-            return buffer.ToString();
+            PinyinDB.Instance.Update(data, replace);
         }
-
-        /// <summary>
-        /// 扩展大小写格式
-        /// </summary>
-        /// <param name="format"></param>
-        /// <param name="caseSpread"></param>
-        /// <param name="firstLetterOnly"></param>
-        /// <param name="pinyin"></param>
-        /// <returns></returns>
-        private static string SpreadCase(PinyinFormat format, bool caseSpread, bool firstLetterOnly, StringBuilder pinyin)
-        {
-            if (firstLetterOnly || !caseSpread)
-            {
-                return pinyin.ToString().Trim();
-            }
-
-            if (format.Contains(PinyinFormat.CAPITALIZE_FIRST_LETTER))
-            {
-                return CapitalizeFirstLetter(pinyin); ;
-            }
-            if (format.Contains(PinyinFormat.LOWERCASE))
-            {
-                return pinyin.ToString().Trim().ToLower();
-            }
-            if (format.Contains(PinyinFormat.UPPERCASE))
-            {
-                return pinyin.ToString().Trim().ToUpper();
-            }
-
-            return pinyin.ToString().Trim();
-        }
+        #endregion
     }
 }

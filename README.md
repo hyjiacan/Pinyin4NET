@@ -151,6 +151,15 @@ dotnet run
 
 ```csharp
 /// <summary>
+/// 更新拼音数据库
+/// </summary>
+/// <param name="data">多音字作在数组中</param>
+/// <param name="replace">是否替换已经存在的项，默认为 false</param>
+public static void UpadteMap(Dictionary<char, string[]> data, bool replace = false)
+```
+
+```csharp
+/// <summary>
 /// 获取汉字的拼音数组
 /// </summary>
 /// <param name="hanzi">要查询拼音的汉字字符</param>
@@ -177,6 +186,15 @@ public static string GetFirstPinyin(char hanzi, PinyinFormat format = PinyinForm
     }
     return PinyinUtil.Format(pinyin, format);
 }
+
+/// <summary>
+/// 获取一个字符串内所有汉字的拼音数组
+/// </summary>
+/// <param name="text">要获取拼音的汉字字符串</param>
+/// <param name="format">拼音输出格式化参数</param>
+/// <returns>返回拼音列表，每个汉字的拼音会作为一个数组存放（无论是单音字还是多音字）</returns>
+/// <see cref="PinyinItem"/>
+public static List<PinyinItem> GetPinyinArray(string text, PinyinFormat format)
 
 /// <summary>
 /// 获取一个字符串内所有汉字的拼音（多音字取第一个读音，带格式）
@@ -215,6 +233,13 @@ public static string GetPinyin(string text, PinyinFormat format, bool caseSpread
 public static string GetPinyin(string text, PinyinFormat format)
 ```
 
+`PinyinItem`：
+
+这是一个继承了 `List<string>` 的数据结构，包含以下字段:
+
+- `IsHanzi` 标识是否是汉字字符
+- `RawChar` 原始的字符
+
 #### 拼音查汉字
 
 ```csharp
@@ -230,6 +255,16 @@ public static string[] GetHanzi(string pinyin, bool matchAll)
 ### Pinyin4Name 姓名拼音查询
 
 > 姓名查询接口都放在类 **Pinyin4Name** 内
+
+
+```csharp
+/// <summary>
+/// 更新姓名数据库
+/// </summary>
+/// <param name="data">复姓的拼音使用一个空格分隔</param>
+/// <param name="replace">是否替换已经存在的项，默认为 false</param>
+public static void UpadteMap(Dictionary<string, string> data, bool replace = false)
+```
 
 ```csharp
 /// <summary>
