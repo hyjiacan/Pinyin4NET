@@ -66,7 +66,7 @@ namespace hyjiacan.py4n
         /// </summary>
         /// <param name="data">复姓的拼音使用一个空格分隔</param>
         /// <param name="replace">是否替换已经存在的项，默认为 false</param>
-        public static void UpadteMap(Dictionary<string, string> data, bool replace = false)
+        public static void UpdateMap(Dictionary<string, string> data, bool replace = false)
         {
             NameDB.Instance.Update(data, replace);
         }

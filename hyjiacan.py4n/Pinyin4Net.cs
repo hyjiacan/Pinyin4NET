@@ -199,7 +199,7 @@ namespace hyjiacan.py4n
         /// </summary>
         /// <param name="data">多音字作在数组中</param>
         /// <param name="replace">是否替换已经存在的项，默认为 false</param>
-        public static void UpadteMap(Dictionary<char, string[]> data, bool replace = false)
+        public static void UpdateMap(Dictionary<char, string[]> data, bool replace = false)
         {
             PinyinDB.Instance.Update(data, replace);
         }
