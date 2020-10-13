@@ -6,7 +6,7 @@
 ![Nuget](https://img.shields.io/nuget/dt/hyjiacan.py4n?style=flat-square)
 ![GitHub](https://img.shields.io/github/license/hyjiacan/pinyin4net?style=flat-square)
 
-**此库引用了 [pinyin4j](http://pinyin4j.sourceforge.net/) 的拼音数据库，在此表示感谢** :+1: :+1: :+1: 
+**此库引用了 [pinyin4j](http://pinyin4j.sourceforge.net/) 的拼音数据库，在此表示感谢** :+1: :+1: :+1:
 
 所有的目标版本都在这一个分支上，现支持以下目标版本:
 
@@ -155,7 +155,7 @@ dotnet run
 /// </summary>
 /// <param name="data">多音字作在数组中</param>
 /// <param name="replace">是否替换已经存在的项，默认为 false</param>
-public static void UpadteMap(Dictionary<char, string[]> data, bool replace = false)
+public static void UpdateMap(Dictionary<char, string[]> data, bool replace = false)
 ```
 
 ```csharp
@@ -263,7 +263,7 @@ public static string[] GetHanzi(string pinyin, bool matchAll)
 /// </summary>
 /// <param name="data">复姓的拼音使用一个空格分隔</param>
 /// <param name="replace">是否替换已经存在的项，默认为 false</param>
-public static void UpadteMap(Dictionary<string, string> data, bool replace = false)
+public static void UpdateMap(Dictionary<string, string> data, bool replace = false)
 ```
 
 ```csharp

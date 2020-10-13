@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 // ReSharper disable MemberCanBeMadeStatic.Local
 
 namespace hyjiacan.py4n.test
@@ -169,6 +170,57 @@ namespace hyjiacan.py4n.test
             const string expected = "JavaScript [a] [h] [z]  [c,z] [s,y]";
             var pinyin = Pinyin4Net.GetPinyin(s, PinyinFormat.None, false, true, true);
             Assert.AreEqual(expected, pinyin);
+        }
+
+        [TestMethod]
+        public void TestArray()
+        {
+            const string s = "JavaScript 爱好者 传说";
+            var expected = new List<PinyinItem>{
+                new PinyinItem('J'),
+                new PinyinItem('a'),
+                new PinyinItem('v'),
+                new PinyinItem('a'),
+                new PinyinItem('s'),
+                new PinyinItem('c'),
+                new PinyinItem('r'),
+                new PinyinItem('i'),
+                new PinyinItem('p'),
+                new PinyinItem('t'),
+                new PinyinItem(' '),
+                new PinyinItem('爱') {
+                    "ai4"
+                },
+                new PinyinItem('好') {
+                    "hao3", "hao4"
+                },
+                new PinyinItem('者') {
+                    "zhe3"
+                },
+                new PinyinItem(' '),
+                new PinyinItem('传') {
+                    "chuan2", "zhuan4"
+                },
+                new PinyinItem('说') {
+                    "shuo1", "shui4", "yue4"
+                }
+            };
+            var pinyin = Pinyin4Net.GetPinyinArray(s, PinyinFormat.None);
+            for (int i = 0; i < expected.Count; i++)
+            {
+                Assert.IsTrue(expected[i].Equals(pinyin[i]));
+            }
+        }
+
+        [TestMethod]
+        public void TestUpdate()
+        {
+            HanziAssert('吃', new string[]{"chi1", "ji2"});
+            // 通过第二个参数 true 替换了原来的拼音 chi ji
+            Pinyin4Net.UpdateMap(new System.Collections.Generic.Dictionary<char, string[]>{
+                {'吃', new string[]{"qie", "qia"}}
+            }, true);
+            HanziAssert('吃', new string[]{"qie", "qia"});
         }
 
         /// <summary>

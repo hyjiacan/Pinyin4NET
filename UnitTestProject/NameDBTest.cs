@@ -121,8 +121,8 @@ namespace hyjiacan.py4n.test
         [TestMethod]
         public void FormatTest4()
         {
-            var format = PinyinFormat.WITH_TONE_MARK | 
-                PinyinFormat.UPPERCASE | 
+            var format = PinyinFormat.WITH_TONE_MARK |
+                PinyinFormat.UPPERCASE |
                 PinyinFormat.WITH_U_UNICODE;
             PinyinFormatAssert("李", "LĬ", format);
             PinyinFormatAssert("单于", "CHÁN YÚ", format);
@@ -179,6 +179,20 @@ namespace hyjiacan.py4n.test
         {
             var hanzi = Pinyin4Name.GetHanzi("fe", false);
             assertArrayAreEquals(new[] { "费", "丰", "封", "酆", "冯", "凤" }, hanzi);
+        }
+
+        [TestMethod]
+        public void TestUpdate()
+        {
+            HanziAssert("张",  "zhang1");
+            HanziAssert("南",  null);
+            // 通过第二个参数 true 替换了原来的拼音 chi
+            Pinyin4Name.UpdateMap(new System.Collections.Generic.Dictionary<string, string>{
+                {"张", "li3"},
+                {"南", "nan2"}
+            }, true);
+            HanziAssert("张",  "li3");
+            HanziAssert("南",  "nan2");
         }
 
         /// <summary>

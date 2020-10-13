@@ -53,29 +53,9 @@ namespace WebDemo.Controllers
                 PinyinUtil.ParseFormat(request.CaseType) |
                 PinyinUtil.ParseFormat(request.VType);
 
-            foreach (char ch in request.Key)
-            {
-                if (!PinyinUtil.IsHanzi(ch))
-                {// 不是汉字直接追加
-                    result.Append(ch);
-                    continue;
-                }
+            var firstPinyinOnly = request.Multi == "first";
 
-                // 是汉字才处理
-
-                // 是否只取第一个拼音
-                if (request.Multi.Equals("first", StringComparison.OrdinalIgnoreCase))
-                {
-                    // 拼音间追加一个空格，这里如果是多间字，拼音可能不准确
-                    result.AppendFormat("{0} ", Pinyin4Net.GetFirstPinyin(ch, format));
-                    continue;
-                }
-
-                string[] py = Pinyin4Net.GetPinyin(ch, format);
-                result.AppendFormat("({0}) ", string.Join(",", py));
-            }
-
-            return result.ToString();
+            return Pinyin4Net.GetPinyin(request.Key, format, true, false, firstPinyinOnly);
         }
     }
 }
