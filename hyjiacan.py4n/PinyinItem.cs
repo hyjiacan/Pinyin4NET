@@ -3,7 +3,7 @@
 namespace hyjiacan.py4n
 {
     /// <summary>
-    /// 调用 GetPinyinArray 时的返回项数据结构 
+    /// 调用 GetPinyinArray 时的返回项数据结构
     /// </summary>
     public class PinyinItem : List<string>
     {
@@ -21,6 +21,51 @@ namespace hyjiacan.py4n
         {
             RawChar = character;
             IsHanzi = PinyinUtil.IsHanzi(character);
+        }
+
+        public override string ToString()
+        {
+            if(IsHanzi) {
+                return $"[{string.Join(",", this)}]";
+            }
+
+            return RawChar.ToString();
+        }
+
+        public override int GetHashCode()
+        {
+            return RawChar.GetHashCode();
+        }
+
+
+
+        public override bool Equals(object obj)
+        {
+            if(obj == null) {
+                return false;
+            }
+
+            var other = obj as PinyinItem;
+            if(other == null) {
+                return false;
+            }
+
+            if(RawChar != other.RawChar) {
+                return false;
+            }
+
+            if(Count != other.Count) {
+                return false;
+            }
+
+            for (int i = 0; i < Count; i++)
+            {
+                if(this[i] != other[i]) {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }
