@@ -181,7 +181,7 @@ namespace hyjiacan.py4n.test
                 new PinyinItem('a'),
                 new PinyinItem('v'),
                 new PinyinItem('a'),
-                new PinyinItem('s'),
+                new PinyinItem('S'),
                 new PinyinItem('c'),
                 new PinyinItem('r'),
                 new PinyinItem('i'),

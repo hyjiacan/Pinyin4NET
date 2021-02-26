@@ -6,16 +6,17 @@
 ![Nuget](https://img.shields.io/nuget/dt/hyjiacan.py4n?style=flat-square)
 ![GitHub](https://img.shields.io/github/license/hyjiacan/pinyin4net?style=flat-square)
 
-**此库引用了 [pinyin4j](http://pinyin4j.sourceforge.net/) 的拼音数据库，在此表示感谢** :+1: :+1: :+1:
-
 所有的目标版本都在这一个分支上，现支持以下目标版本:
 
 - net4.0
 - net4.5
 - net4.6
 - net4.7
+- net5.0
+- net6.0
 - netcore2.0
 - netcore3.0
+- netcore3.1
 - netstandard1.6
 - netstandard2.0
 - netstandard2.1
@@ -40,22 +41,24 @@ git clone https://gitee.com/hyjiacan/Pinyin4Net.git
 
 ## nuget 安装
 
+> 包 ID 在 4.0(含) 以前叫做 `hyjiacan.py4n`
+
 Package Manager
 
 ```bash
-Install-Package hyjiacan.py4n
+Install-Package hyjiacan.pinyin4net
 ```
 
 .NET CLI
 
 ```bash
-dotnet add package hyjiacan.py4n
+dotnet add package hyjiacan.pinyin4net
 ```
 
 Packet CLI
 
 ```bash
-paket add hyjiacan.py4n
+paket add hyjiacan.pinyin4net
 ```
 
 > 注：nuget 上还有一个 `Pinyin4Net` 的包，
@@ -252,14 +255,14 @@ public static string GetPinyin(string text, PinyinFormat format)
 public static string[] GetHanzi(string pinyin, bool matchAll)
 ```
 
-### Pinyin4Name 姓名拼音查询
+### Name4Net 姓氏拼音查询
 
-> 姓名查询接口都放在类 **Pinyin4Name** 内
+> 姓氏查询接口都放在类 **Name4Net** 内
 
 
 ```csharp
 /// <summary>
-/// 更新姓名数据库
+/// 更新姓氏数据库
 /// </summary>
 /// <param name="data">复姓的拼音使用一个空格分隔</param>
 /// <param name="replace">是否替换已经存在的项，默认为 false</param>
@@ -368,19 +371,32 @@ Pinyin4Net.GetPinyin(hanzi, format);
 string[] hanzi = Pinyin4Net.GetHanzi('li', true);
 ```
 
-### 姓名拼音查询
+### 姓氏拼音查询
 
 ```csharp
 string firstName = "单于";
 // 取出姓的拼音
-string py = Pinyin4Name.GetPinyin(firstName);
+string py = Name4Net.GetPinyin(firstName);
 // 取出姓的拼音首字母
-string py = Pinyin4Name.GetFirstLetter(firstName);
+string py = Name4Net.GetFirstLetter(firstName);
 // 取出姓的拼音(格式化后)
-string py = Pinyin4Name.GetPinyin(firstName, format);
+string py = Name4Net.GetPinyin(firstName, format);
 // 取出匹配拼音的姓
-string[] firstNames = Pinyin4Name.GetHanzi("li", false);
+string[] firstNames = Name4Net.GetHanzi("li", false);
 ```
+
+## 数据源
+
+### 拼音库
+
+完整引用了 [pinyin4j](http://pinyin4j.sourceforge.net/) 的拼音数据库，在此表示感谢 :+1: :+1: :+1:
+
+### 姓氏库
+
+姓氏数据源自 http://fanwen.geren-jianli.org/622876.html，
+经本人整理使用。
+
+> 库可能并不完整，或者有些姓氏拼音有误，欢迎通过 [Issues](https://gitee.com/hyjiacan/Pinyin4Net/issues/new) 更正或者直接通过 PR 提交。
 
 ## 捐赠列表
 

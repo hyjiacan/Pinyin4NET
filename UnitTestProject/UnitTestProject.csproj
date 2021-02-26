@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>NETSTANDARD1.6;NETSTANDARD2.0;NETSTANDARD2.1;NETCOREAPP2.0;NETCOREAPP3.0;NET45;</TargetFrameworks>
+    <TargetFrameworks>NETSTANDARD1.6;NETSTANDARD2.0;NETSTANDARD2.1;NETCOREAPP2.0;NETCOREAPP3.0;NETCOREAPP3.1;NET45;NET50;NET60;</TargetFrameworks>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>

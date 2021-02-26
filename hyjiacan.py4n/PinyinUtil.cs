@@ -20,7 +20,7 @@ namespace hyjiacan.py4n
         /// <returns></returns>
         public static bool IsHanzi(char ch)
         {
-            return Regex.IsMatch(ch.ToString(), @"[\u4e00-\u9fbb]");
+            return 0x4e00 <= ch && ch <= 0x9fbb;
         }
 
         public static PinyinFormat ParseFormat(string str)

@@ -6,11 +6,11 @@ using System.Collections.Generic;
 namespace hyjiacan.py4n
 {
     /// <summary>
-    /// 处理姓名专用
+    /// 处理姓氏专用
     /// </summary>
-    public static class Pinyin4Name
+    public static class Name4Net
     {
-        #region // 获取单字拼音
+        #region // 获取拼音
         /// <summary>
         /// 获取姓的拼音，如果是复姓则由空格分隔
         /// </summary>
@@ -62,7 +62,7 @@ namespace hyjiacan.py4n
             return NameDB.Instance.GetHanzi(pinyin.ToLower(), matchAll).ToArray();
         }
         /// <summary>
-        /// 更新姓名数据库
+        /// 更新姓氏数据库
         /// </summary>
         /// <param name="data">复姓的拼音使用一个空格分隔</param>
         /// <param name="replace">是否替换已经存在的项，默认为 false</param>
