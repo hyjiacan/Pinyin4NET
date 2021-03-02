@@ -317,7 +317,7 @@ public enum PinyinFormat
     /// </summary>
     UPPERCASE = 1 << 3,
     /// <summary>
-    /// 将 ü 输出为 u=
+    /// 将 ü 输出为 u:
     /// </summary>
     WITH_U_AND_COLON = 1 << 4,
     /// <summary>
@@ -325,7 +325,7 @@ public enum PinyinFormat
     /// </summary>
     WITH_V = 1 << 5,
     /// <summary>
-    /// 将 ü 输出为ü
+    /// 将 ü 输出为 ü
     /// </summary>
     WITH_U_UNICODE = 1 << 6,
     /// <summary>

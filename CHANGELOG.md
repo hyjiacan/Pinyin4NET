@@ -1,5 +1,15 @@
 # Pinyin4NET 更新日志
 
+## 2021-03-02 5.0.0
+
+- 修改 nuget 包 id 为 `hyjiacan.pinyin4net` **breaking**
+- 姓氏查询库入口由 `Pinyin4Name` 改为 `Name4Net` **breaking**
+- 添加构建目标 .netcoreapp3.1 net50 net60
+- 添加更详细的姓氏数据
+- 添加 `Pinyin4net.GetPinyinArray` 接口，用于查询一段文字的拼音列表
+- 添加 `UpdateMap` 接口，用于自定义拼音和姓名的映射管理
+- 移除 _WebDemo_ 项目
+
 ## 2020-10-11 4.1.0
 
 - 添加 `GetPinyinArray` 接口，用于查询一段文字的拼音列表
