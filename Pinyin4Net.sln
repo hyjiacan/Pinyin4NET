@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestProject", "UnitTestProject\UnitTestProject.csproj", "{EB2B5623-6C73-4BFC-9ED6-6FA3B226E946}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebDemo", "WebDemo\WebDemo.csproj", "{E828CD27-C7D1-4487-89E0-A2D1DA016B18}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "hyjiacan.py4n", "hyjiacan.py4n\hyjiacan.py4n.csproj", "{A97825FF-42D0-4BF3-8EC6-071E99FCAD63}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{ADD45EF3-8D01-46E4-8BEE-A3E829030E5F}"
