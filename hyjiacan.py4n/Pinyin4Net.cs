@@ -22,7 +22,7 @@ namespace hyjiacan.py4n
             if (!PinyinUtil.IsHanzi(hanzi))
             {
                 // 不是汉字
-                throw new UnsupportedUnicodeException("不支持的字符: 请输入汉字");
+                throw new UnsupportedUnicodeException("不支持的字符: " + hanzi);
             }
             var pinyin = PinyinDB.Instance.GetPinyin(hanzi);
             if (format == PinyinFormat.None)

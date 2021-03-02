@@ -37,8 +37,6 @@ namespace hyjiacan.py4n
             return RawChar.GetHashCode();
         }
 
-
-
         public override bool Equals(object obj)
         {
             if(obj == null) {

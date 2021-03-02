@@ -22,7 +22,7 @@ namespace hyjiacan.py4n
         /// </summary>
         UPPERCASE = 1 << 3,
         /// <summary>
-        /// 将 ü 输出为 u=
+        /// 将 ü 输出为 u:
         /// </summary>
         WITH_U_AND_COLON = 1 << 4,
         /// <summary>
