@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>NETSTANDARD1.6;NETSTANDARD2.0;NETSTANDARD2.1;NETCOREAPP2.0;NETCOREAPP3.0;NETCOREAPP3.1;NET40;NET45;NET50;NET60;</TargetFrameworks>
+    <TargetFrameworks>NETSTANDARD1.6;NETSTANDARD2.0;NETSTANDARD2.1;NETCOREAPP2.0;NETCOREAPP3.0;NETCOREAPP3.1;NET40;NET45;NET46;NET461;NET462;NET47;NET50;NET60;</TargetFrameworks>
     <Product>Pinyin4NET</Product>
     <PackageId>hyjiacan.pinyin4net</PackageId>
     <Description>.NET(core)环境下使用的拼音(包含姓氏拼音)-汉字互转库。</Description>
     <Authors>hyjiacan</Authors>
     <Copyright>Copyright ©hyjiacan 2018-?</Copyright>
-    <Version>4.1.0</Version>
-    <FileVersion>4.1.0</FileVersion>
+    <Version>4.1.0-preview</Version>
+    <FileVersion>4.1.0-preview</FileVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageLicense>https://mit-license.org/</PackageLicense>

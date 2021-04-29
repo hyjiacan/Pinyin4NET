@@ -2,8 +2,8 @@
 
 .net 环境下使用的拼音-汉字互转库
 
-![Nuget](https://img.shields.io/nuget/v/hyjiacan.py4n?style=flat-square)
-![Nuget](https://img.shields.io/nuget/dt/hyjiacan.py4n?style=flat-square)
+![Nuget](https://img.shields.io/nuget/v/hyjiacan.pinyin4net?style=flat-square)
+![Nuget](https://img.shields.io/nuget/dt/hyjiacan.pinyin4net?style=flat-square)
 ![GitHub](https://img.shields.io/github/license/hyjiacan/pinyin4net?style=flat-square)
 
 所有的目标版本都在这一个分支上，现支持以下目标版本:
@@ -11,7 +11,10 @@
 - net4.0
 - net4.5
 - net4.6
+- net4.6.1
+- net4.6.2
 - net4.7
+- net4.8
 - net5.0
 - net6.0
 - netcore2.0

@@ -1,4 +1,3 @@
 @echo off
-cd hyjiacan.py4n
-dotnet build --configuration Release --no-dependencies --no-incremental
+dotnet build --configuration Release --no-dependencies --no-incremental hyjiacan.py4n/hyjiacan.py4n.csproj
 pause
