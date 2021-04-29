@@ -54,10 +54,10 @@ namespace hyjiacan.py4n
         /// <returns></returns>
         public static string Format(string py, PinyinFormat format)
         {
-            // "v"或"u:"不能添加声调
-            if (format.Contains(WITH_TONE_MARK) && (format.Contains(WITH_V) || format.Contains(WITH_U_AND_COLON)))
+            // "v"或"u:" yu 不能添加声调
+            if (format.Contains(WITH_TONE_MARK) && (format.Contains(WITH_V) || format.Contains(WITH_U_AND_COLON) || format.Contains(WITH_YU)))
             {
-                throw new PinyinException("\"v\"或\"u:\"不能添加声调");
+                throw new PinyinException("\"v\", \"u:\", \"yu\" 不能添加声调");
             }
             var pinyin = py;
 
@@ -83,6 +83,11 @@ namespace hyjiacan.py4n
             {
                 // 输出ü
                 pinyin = pinyin.Replace("u:", "ü");
+            }
+            else if (format.Contains(WITH_YU))
+            {
+                // 输出 yu
+                pinyin = pinyin.Replace("u:", "yu");
             }
 
             if (format.Contains(UPPERCASE))

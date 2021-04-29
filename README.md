@@ -329,6 +329,10 @@ public enum PinyinFormat
     /// </summary>
     WITH_U_UNICODE = 1 << 6,
     /// <summary>
+    /// 将 ü 输出为 yu
+    /// </summary>
+    WITH_YU = 1 << 10,
+    /// <summary>
     /// 带声调标志
     /// </summary>
     WITH_TONE_MARK = 1 << 7,

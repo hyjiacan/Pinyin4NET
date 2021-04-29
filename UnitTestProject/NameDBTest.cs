@@ -132,6 +132,18 @@ namespace hyjiacan.py4n.test
     }
 
     /// <summary>
+    /// 输出 u: 为 yu
+    /// </summary>
+    [TestMethod]
+    public void FormatTest41()
+    {
+      var format = PinyinFormat.WITH_YU;
+      PinyinFormatAssert("吕", "lyu3", format);
+      PinyinFormatAssert("闾", "lyu2", format);
+      PinyinFormatAssert("律", "lyu4", format);
+    }
+
+    /// <summary>
     /// 根据拼音获取姓
     /// </summary>
     [TestMethod]
