@@ -6,26 +6,6 @@
 ![Nuget](https://img.shields.io/nuget/dt/hyjiacan.pinyin4net?style=flat-square)
 ![GitHub](https://img.shields.io/github/license/hyjiacan/pinyin4net?style=flat-square)
 
-所有的目标版本都在这一个分支上，现支持以下目标版本:
-
-- net4.0
-- net4.5
-- net4.6
-- net4.6.1
-- net4.6.2
-- net4.7
-- net4.8
-- net5.0
-- net6.0
-- netcore2.0
-- netcore3.0
-- netcore3.1
-- netstandard1.6
-- netstandard2.0
-- netstandard2.1
-
-.NET 版本对应关系参见 [How to target the .NET Standard](https://docs.microsoft.com/en-us/dotnet/core/tutorials/libraries#how-to-target-the-net-standard)
-
 ## 源码与发行版
 
 GitHub [zip](https://github.com/hyjiacan/Pinyin4Net/archive/master.zip)
@@ -67,6 +47,28 @@ paket add hyjiacan.pinyin4net
 > 注：nuget 上还有一个 `Pinyin4Net` 的包，
 > 那是有网友基于此项目的早期版本发布的，并非本人发布。
 
+## 兼容版本
+
+所有的目标版本都在这一个分支上，现支持以下目标版本:
+
+- net4.0
+- net4.5
+- net4.6
+- net4.6.1
+- net4.6.2
+- net4.7
+- net4.8
+- net5.0
+- net6.0
+- netcore2.0
+- netcore3.0
+- netcore3.1
+- netstandard1.6
+- netstandard2.0
+- netstandard2.1
+
+.NET 版本对应关系参见 [How to target the .NET Standard](https://docs.microsoft.com/en-us/dotnet/core/tutorials/libraries#how-to-target-the-net-standard)
+
 ## 编译
 
 > 注：开发环境已切换为 [Visual Studio Code](https://code.visualstudio.com/)
@@ -100,18 +102,9 @@ dotnet build --configuration Release
 dotnet build -f net40
 ```
 
-当前配置可以使用的版本如下：
+当前配置可以使用的版本 见 [兼容版本](#兼容版本)
 
-- NET40
-- NET45
-- NETCOREAPP2.0
-- NETCOREAPP3.0
-- NETSTANDARD1.6
-- NETSTANDARD2.0
-- NETSTANDARD2.1
-
-> 若要编译成其它的目标版本，需要自行修改*hyjiacan.py4n.csptoj*里面的`TargetFrameworks`节点，
-> 版本名称见[How to target the .NET Framework](https://docs.microsoft.com/en-us/dotnet/core/tutorials/libraries#how-to-target-the-net-framework)
+> 若要编译成其它的目标版本，需要自行修改*hyjiacan.py4n.csptoj*里面的`TargetFrameworks`节点
 
 ## 单元测试
 
@@ -134,16 +127,6 @@ dotnet test -f net45
 ```
 
 > 注意：.net4.0 或以下版本不支持`MsTest`单元测试
-
-## WebDemo
-
-> Demo 网站基于**.NETCORE2.0**
-
-```bash
-cd WebDemo
-dotnet build
-dotnet run
-```
 
 ## 接口
 
