@@ -395,7 +395,7 @@ string[] firstNames = Name4Net.GetHanzi("li", false);
 > 库可能并不完整，或者有些姓氏拼音有误，欢迎通过 [Issues](https://gitee.com/hyjiacan/Pinyin4Net/issues/new) 更正或者直接通过 PR 提交。
 >
 > 部分姓氏存在多种不同的读音，在库中仅使用了常用的读音。
-> 
+>
 > 也可以使用 `Name4Net.UpdateMap()` 接口自行处理。
 
 ## 捐赠列表
@@ -406,3 +406,8 @@ string[] firstNames = Name4Net.GetHanzi("li", false);
 - 袁智远
 
 感谢以上朋友的支持，你们使开源更有信心。
+
+## 待办
+
+- 给姓氏的 GetPinyi 接口添加自定义的处理器
+- 对拼音格式化添加 ǘ -> yu 的支持

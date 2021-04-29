@@ -7,8 +7,10 @@ using System;
 
 namespace hyjiacan.py4n
 {
-    public static class Pinyin4Net
+    public class Pinyin4Net
     {
+        protected Pinyin4Net() {}
+
         #region // 获取单字拼音
         /// <summary>
         /// 获取汉字的拼音数组

@@ -8,8 +8,10 @@ namespace hyjiacan.py4n
     /// <summary>
     /// 处理姓氏专用
     /// </summary>
-    public static class Name4Net
+    public class Name4Net
     {
+        protected Name4Net() {}
+
         #region // 获取拼音
         /// <summary>
         /// 获取姓的拼音，如果是复姓则由空格分隔
