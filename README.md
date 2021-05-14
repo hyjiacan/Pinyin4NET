@@ -44,6 +44,12 @@ Packet CLI
 paket add hyjiacan.pinyin4net
 ```
 
+直接引用包
+
+```xml
+<PackageReference Include="hyjiacan.pinyin4net" Version="4.1.0-preview" />
+```
+
 > 注：nuget 上还有一个 `Pinyin4Net` 的包，
 > 那是有网友基于此项目的早期版本发布的，并非本人发布。
 
