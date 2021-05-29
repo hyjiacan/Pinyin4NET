@@ -12,7 +12,11 @@ namespace hyjiacan.py4n
     /// </summary>
     public static class PinyinUtil
     {
+        /// <summary>
+        /// 声明不需要将首字母大写的拼音
+        /// </summary>
         private static readonly string[] IGNORE_LIST = { "a", "e", "o" };
+
         /// <summary>
         /// 判断字符是否是汉字
         /// </summary>
@@ -23,6 +27,11 @@ namespace hyjiacan.py4n
             return 0x4e00 <= ch && ch <= 0x9fbb;
         }
 
+        /// <summary>
+        /// 将字符串格式的 PinyinFormat 转换成 PinyinFormat 对象
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public static PinyinFormat ParseFormat(string str)
         {
             if (Enum.TryParse(str, out PinyinFormat format))

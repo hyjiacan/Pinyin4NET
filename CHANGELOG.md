@@ -1,6 +1,12 @@
 # Pinyin4NET 更新日志
 
-## 2021-03-02 5.0.0
+## 2021-03-02 4.1.0-release
+
+- 修改 `Name4Net.UpdateMap()` 接口的参数，将使用空格分隔调整为使用数组
+- 修复 `Name4Net.GetHanzi()` 无法处理输入 `v` 和 `lyu` 的问题
+- 添加一些不必要的代码注释
+
+## 2021-03-02 4.1.0-preview
 
 - 修改 nuget 包 id 为 `hyjiacan.pinyin4net` **breaking**
 - 姓氏查询库入口由 `Pinyin4Name` 改为 `Name4Net` **breaking**
@@ -9,11 +15,6 @@
 - 添加 `Pinyin4net.GetPinyinArray` 接口，用于查询一段文字的拼音列表
 - 添加 `UpdateMap` 接口，用于自定义拼音和姓名的映射管理
 - 移除 _WebDemo_ 项目
-
-## 2020-10-11 4.1.0
-
-- 添加 `GetPinyinArray` 接口，用于查询一段文字的拼音列表
-- 添加 `UpdateMap` 接口，用于自定义拼音和姓氏的映射管理
 
 ## 2019-09-23 4.0.0
 

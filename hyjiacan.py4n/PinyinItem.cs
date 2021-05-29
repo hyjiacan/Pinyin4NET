@@ -3,7 +3,7 @@
 namespace hyjiacan.py4n
 {
     /// <summary>
-    /// 调用 GetPinyinArray 时的返回项数据结构
+    /// 调用 GetPinyinArray 时的返回项数据结构，其用于兼容：多音字时返回多个拼音
     /// </summary>
     public class PinyinItem : List<string>
     {
@@ -23,6 +23,9 @@ namespace hyjiacan.py4n
             IsHanzi = PinyinUtil.IsHanzi(character);
         }
 
+        /// <summary>
+        /// 将拼音处理成字符串，如果当前字符为多音字，那么多个拼音使用 , 分隔
+        /// </summary>
         public override string ToString()
         {
             if(IsHanzi) {

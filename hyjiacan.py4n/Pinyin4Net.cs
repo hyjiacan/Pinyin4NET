@@ -7,6 +7,9 @@ using System;
 
 namespace hyjiacan.py4n
 {
+    /// <summary>
+    /// 拼音与汉字相互转换入口
+    /// </summary>
     public class Pinyin4Net
     {
         protected Pinyin4Net() {}
@@ -199,7 +202,7 @@ namespace hyjiacan.py4n
         /// <summary>
         /// 更新拼音数据库
         /// </summary>
-        /// <param name="data">多音字作在数组中</param>
+        /// <param name="data">Key为汉字，Value为读音(多个读音的拼音作为数组的项)</param>
         /// <param name="replace">是否替换已经存在的项，默认为 false</param>
         public static void UpdateMap(Dictionary<char, string[]> data, bool replace = false)
         {

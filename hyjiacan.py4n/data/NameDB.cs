@@ -37,20 +37,20 @@ namespace hyjiacan.py4n.data
         /// </summary>
         /// <param name="data"></param>
         /// <param name="replace"></param>
-        public void Update(Dictionary<string, string> data, bool replace = false)
+        public void Update(Dictionary<string, string[]> data, bool replace = false)
         {
             foreach (var item in data)
             {
                 if (!dataMap.ContainsKey(item.Key))
                 {
-                    dataMap.Add(item.Key, item.Value);
+                    dataMap.Add(item.Key, string.Join(" ", item.Value));
                     continue;
                 }
                 if (!replace)
                 {
                     continue;
                 }
-                dataMap[item.Key] = item.Value;
+                dataMap[item.Key] = string.Join(" ", item.Value);
             }
         }
 
@@ -97,6 +97,8 @@ namespace hyjiacan.py4n.data
             // 完全匹配
             if (matchAll)
             {
+                // 此时将拼音中的 v 处理成 u: ，将 lyu 处理成 lu:
+                pinyin = pinyin.Replace("v", "u:").Replace("lyu", "lu:");
                 // 查询到匹配的拼音的汉字
                 return dataMap.Where(item => reg.Replace(item.Value, "").Equals(pinyin))
                     .Select(item => item.Key).ToArray();

@@ -148,7 +148,7 @@ dotnet test -f net45
 /// <summary>
 /// 更新拼音数据库
 /// </summary>
-/// <param name="data">多音字作在数组中</param>
+/// <param name="data">Key为汉字，Value为读音(多个读音的拼音作为数组的项)</param>
 /// <param name="replace">是否替换已经存在的项，默认为 false</param>
 public static void UpdateMap(Dictionary<char, string[]> data, bool replace = false);
 
@@ -254,9 +254,9 @@ public static string[] GetHanzi(string pinyin, bool matchAll);
 /// <summary>
 /// 更新姓氏数据库
 /// </summary>
-/// <param name="data">复姓的拼音使用一个空格分隔</param>
+/// <param name="data">Key为姓，Value为读音(复姓拼音作为数组的项)</param>
 /// <param name="replace">是否替换已经存在的项，默认为 false</param>
-public static void UpdateMap(Dictionary<string, string> data, bool replace = false);
+public static void UpdateMap(Dictionary<string, string[]> data, bool replace = false);
 
 /// <summary>
 /// 获取姓的拼音，如果是复姓则由空格分隔
@@ -278,7 +278,7 @@ public static string GetFirstLetter(string firstName);
 /// <summary>
 /// 根据拼音查询匹配的姓
 /// </summary>
-/// <param name="pinyin"></param>
+/// <param name="pinyin">当 matchAll 为 true 时，会自动处理 v->u: 以及 lyu->lu:</param>
 /// <param name="matchAll">是否全部匹配，为true时，匹配整个拼音，否则匹配开头字符，此参数用于告知传入的拼音是完整拼音还是仅仅是声母</param>
 /// <returns>匹配的姓数组</returns>
 public static string[] GetHanzi(string pinyin, bool matchAll);

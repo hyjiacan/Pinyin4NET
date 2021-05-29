@@ -35,7 +35,7 @@ namespace hyjiacan.py4n
         WITH_U_UNICODE = 1 << 6,
         /// <summary>
         /// 将 ü 输出为 yu
-        /// 在兼容英文的环境下， ü 要写作 yu
+        /// 在兼容英文的环境下， ü 要写作 yu。注意，目前仅存在 lyu 这一个读音有这种情况。
         /// </summary>
         WITH_YU = 1 << 10,
         /// <summary>
